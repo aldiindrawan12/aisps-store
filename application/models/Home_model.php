@@ -36,5 +36,10 @@ class Home_model extends CI_model
         $this->db->set('total_harga',$new_total_harga ); 
         return $this->db->update('keranjang');
     }
+    public function edit_produk($data_produk){
+        $this->db->where('id',);
+        $this->db->update('produk', $data_produk);
+    }
+
     
 }

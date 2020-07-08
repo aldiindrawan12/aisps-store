@@ -77,6 +77,33 @@ class Home extends CI_Controller {
 		redirect(base_url());
 	}
 
+	public function edit_produk(){
+
+		$config['upload_path'] = './assets/img/'; //letak folder file yang akan diupload
+        $config['allowed_types'] = 'gif|jpg|png|img|jpeg'; //jenis file yang dapat diterima
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('vgambar')) {
+            $this->upload->data();
+            $gambar =  $this->upload->data('file_name');
+        }
+
+		$data_produk = array(
+			"nama_produk" => $this->input->post("vnama"),
+			"deskripsi" => $this->input->post("vdeskripsi"),
+			"harga" => $this->input->post("vharga"),
+			"ukuran" => $this->input->post("vukuran"),
+			"kategori_produk" => $this->input->post("vkategori"),
+			"tipe_produk" => $this->input->post("vtipe"),
+			"stok_produk" => $this->input->post("vstok"),
+			"diskon" => $this->input->post("vdiskon"),
+			"gambar" => $gambar
+		);
+		$this->home_model->edit_produk($data_produk);
+		redirect(base_url());
+	}
+
 	public function hapus_produk($id_produk){
         $this->home_model->hapus_produk($id_produk);
         redirect(base_url());

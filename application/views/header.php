@@ -58,6 +58,7 @@
       <?php }?>
     </ul>
   </div>
+  
 <!-- Modal tambah produk-->
 <div class="modal fade" id="tambahproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
