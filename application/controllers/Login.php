@@ -31,6 +31,9 @@ class Login extends CI_Controller {
 			$saved_password = password_hash($user['password'], PASSWORD_DEFAULT); 
 			if(password_verify($password, $saved_password)){//cek kecocokan password
 				//set session
+				if($username == "admin12"){
+					$_SESSION["status"] = "admin";
+				}
 				$_SESSION["login"] = true;
 				$_SESSION["pelanggan_user"] = $username;
 				$_SESSION["id_pelanggan"] = $user["id_pengguna"];

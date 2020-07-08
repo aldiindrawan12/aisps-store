@@ -15,6 +15,13 @@ class Home_model extends CI_model
     public function add_keranjang($data_keranjang){
         return $this->db->insert("keranjang", $data_keranjang);
     }
+    public function add_produk($data_produk){
+        return $this->db->insert("produk", $data_produk);
+    }
+    public function hapus_produk($id_produk){
+        $this->db->where("id_produk",$id_produk);
+        return $this->db->delete("produk");
+    }
     public function getkeranjang($id_produk,$id_pengguna){
         return $this->db->get_where("keranjang",array("id_produk"=>$id_produk,"id_pengguna"=>$id_pengguna))->row_array();
     }

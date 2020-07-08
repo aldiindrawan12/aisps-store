@@ -11,6 +11,7 @@ class Home extends CI_Controller {
 		$data["username"] = $username = $_SESSION["pelanggan_user"];
 		$data["pengguna"] = $this->home_model->getpengguna($username);
 		$data["produk_bulan"] = $this->home_model->getprodukbulan();
+		$data["status"] = $_SESSION["status"];
         $this->load->view('header',$data);
 		$this->load->view('home/home',$data);
 	}
@@ -46,4 +47,39 @@ class Home extends CI_Controller {
 		}
 		redirect(base_url());
 	}
+
+	public function add_produk(){
+
+		$config['upload_path'] = './assets/img/'; //letak folder file yang akan diupload
+        $config['allowed_types'] = 'gif|jpg|png|img|jpeg'; //jenis file yang dapat diterima
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('gambar-produk')) {
+            $this->upload->data();
+            $gambar =  $this->upload->data('file_name');
+        }
+
+		date_default_timezone_set('Asia/Bangkok'); //set timezone waktu
+		$data_produk = array(
+			"nama_produk" => $this->input->post("nama-produk"),
+			"deskripsi" => $this->input->post("deskripsi-produk"),
+			"harga" => $this->input->post("harga-produk"),
+			"ukuran" => $this->input->post("ukuran-produk"),
+			"kategori_produk" => $this->input->post("kategori-produk"),
+			"tipe_produk" => $this->input->post("tipe-produk"),
+			"stok_produk" => $this->input->post("stok-produk"),
+			"diskon" => $this->input->post("diskon-produk"),
+			"gambar" => $gambar,
+			"tanggal_masuk" => date("Y-m-d H-i-s")
+		);
+		$this->home_model->add_produk($data_produk);
+		redirect(base_url());
+	}
+
+	public function hapus_produk($id_produk){
+        $this->home_model->hapus_produk($id_produk);
+        redirect(base_url());
+    }
+
 }

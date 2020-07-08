@@ -13,7 +13,7 @@
 <body>
 
 <!-- Modal detail produk-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -22,26 +22,39 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?php echo base_url('index.php/home/add_keranjang')?>" method="POST">
         <div class="modal-body">
             <img src="" class="figure-img img-fluid rounded w-50 float-left" alt="..." id="d-gambar">
             <span class="text-danger" id="d-harga">Rp.150000</span></br>
             <span class="text-danger" id="d-deskripsi">deskripsi</span></br>
             <span class="text-danger" id="d-stok">stok</span></br>
-            <input type="text" id="v-harga" name="v-harga" hidden>
-            <input type="text" id="v-id" name="v-id" hidden>
-            <div class="input-group">
-                <input type="number" name="v-jumlah" id="v-jumlah" placeholder="0" style="width:25%" class="text-sm-center">
-            </div>
+            <?php if($status != "admin"){?>
+              <form action="<?php echo base_url('index.php/home/add_keranjang')?>" method="POST">
+                <input type="text" id="v-harga" name="v-harga" hidden>
+                <input type="text" id="v-id" name="v-id" hidden>
+                <div class="input-group">
+                    <input type="number" name="v-jumlah" id="v-jumlah" placeholder="0" style="width:25%" class="text-sm-center">
+                </div>   
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">+ Keranjang</button>
+                </div>
+              </form>
+            <?php }?>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">+ Keranjang</button>
-        </div>
-      </form>
+        <?php if($status == "admin"){?>
+          <div class="modal-footer">
+            <!-- <a href="" class="btn btn-primary">
+              <span>Edit</span>
+            </a> -->
+            <a href="" id="link-hapus" class="btn btn-primary">
+              <span>Hapus</span>
+            </a>
+          </div>
+        <?php } ?>
     </div>
   </div>
 </div>
 <!-- akhir Modal detail produk-->
+
 <!-- tampilan produk -->
 <div class="container mt-3">
   <div class="text-center">
@@ -50,7 +63,7 @@
   <div class="row">
     <?php foreach($produk_bulan as $value){?>
         <div class="col-6 col-sm-3">
-            <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#exampleModal" onclick="dataproduk(this)">
+            <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
                 <figure class="figure p-3 rounded border border-primary">
                   <img src="<?php echo base_url('assets/img/').$value["gambar"] ?>" class="figure-img img-fluid rounded" alt="...">
                   <figcaption class="figure-caption text-center">
@@ -85,6 +98,9 @@
         $("#v-jumlah").attr({
           "max" : data["stok_produk"],
           "min" : 0
+        });
+        $("#link-hapus").attr({
+          "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]
         });
       }
     });
