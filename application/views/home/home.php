@@ -41,7 +41,7 @@
                 <td>Diskon <span class="" id="d-stok">0</span>%</td>
               </tr>
             </table>
-            <?php if($status != "admin"){?>
+            <?php if($status != "admin" && $status != ""){?>
               <form action="<?php echo base_url('index.php/home/add_keranjang')?>" method="POST">
                 <input type="text" id="v-harga" name="v-harga" hidden>
                 <input type="text" id="v-id" name="v-id" hidden>
@@ -84,6 +84,7 @@
       </div>
       <?php echo form_open_multipart('home/edit_produk')?>
         <div class="modal-body">
+        <input type="text" name="vid" id="vid" hidden>
           <div class="form-group">
             <input type="text" name="vnama" id="vname" class="form-control" placeholder="Nama Produk" value="">
           </div>
@@ -137,7 +138,7 @@
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Edit</button>
         </div>
-      <<?php echo form_close(); ?>
+      <?php echo form_close(); ?>
     </div>
   </div>
 </div>
@@ -156,6 +157,12 @@
                   <img src="<?php echo base_url('assets/img/').$value["gambar"] ?>" class="figure-img img-fluid rounded" alt="...">
                   <figcaption class="figure-caption text-center">
                     <span><?= $value["nama_produk"]?></span>
+                  </figcaption>
+                  <figcaption class="figure-caption text-left">
+                    Rp.<span><?= $value["harga"]?></span>
+                  </figcaption>
+                  <figcaption class="figure-caption text-left">
+                    <span><?= $value["stok_produk"]?></span> Tersedia
                   </figcaption>
                 </figure>
             </a>
@@ -213,6 +220,7 @@
         id: id_produk
       },
       success: function(data) {
+        $("#vid").val(id_produk);
         $("#vname").val(data["nama_produk"]);
         $("#vdeskripsi").val(data["deskripsi"]);
         $("#vharga").val(data["harga"]);

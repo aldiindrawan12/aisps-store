@@ -90,6 +90,7 @@ class Home extends CI_Controller {
         }
 
 		$data_produk = array(
+			"id_produk" => $this->input->post("vid"),
 			"nama_produk" => $this->input->post("vnama"),
 			"deskripsi" => $this->input->post("vdeskripsi"),
 			"harga" => $this->input->post("vharga"),

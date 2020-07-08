@@ -29,7 +29,11 @@ class Home_model extends CI_model
         $data = $this->db->get_where("keranjang",array("id_keranjang"=>$id_keranjang))->row_array();
         $produk = $this->db->get_where("produk",array("id_produk"=>$data["id_produk"]))->row_array();
         $harga = $produk["harga"];
-        $new_jumlah_barang = $data["jumlah_barang"] + $jumlah_barang;
+        if(($jumlah_barang + $data["jumlah_barang"]) > $produk["stok_produk"]){
+            $new_jumlah_barang = $produk["stok_produk"];
+        }else{
+            $new_jumlah_barang = $data["jumlah_barang"] + $jumlah_barang;
+        }
         $new_total_harga = $new_jumlah_barang * $harga;
         $this->db->where("id_keranjang",$id_keranjang);
         $this->db->set('jumlah_barang',$new_jumlah_barang ); 
@@ -37,7 +41,7 @@ class Home_model extends CI_model
         return $this->db->update('keranjang');
     }
     public function edit_produk($data_produk){
-        $this->db->where('id',);
+        $this->db->where('id_produk',$data_produk["id_produk"]);
         $this->db->update('produk', $data_produk);
     }
 

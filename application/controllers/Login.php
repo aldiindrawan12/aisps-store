@@ -33,6 +33,8 @@ class Login extends CI_Controller {
 				//set session
 				if($username == "admin12"){
 					$_SESSION["status"] = "admin";
+				}else{
+					$_SESSION["status"] = "pengguna";
 				}
 				$_SESSION["login"] = true;
 				$_SESSION["pelanggan_user"] = $username;

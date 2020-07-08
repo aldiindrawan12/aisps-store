@@ -135,6 +135,8 @@
             },
             success: function(data) {
                 location.reload();
+                // $("#t-total").text(data["total_harga"]);
+                // $("#t-jumlah").text(data["jumlah_barang"]);
             }
         });
     }

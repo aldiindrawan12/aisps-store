@@ -24,6 +24,8 @@ class Keranjang extends CI_Controller {
     public function update_jumlah($operasi){
         $id_keranjang = $this->input->get('id');
         $this->keranjang_model->update_jumlah($id_keranjang,$operasi);
-        echo "berhasil";
+
+        $data = $this->keranjang_model->getkeranjangbyid($id_keranjang);
+        echo json_encode($data);
     }
 }

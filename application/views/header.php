@@ -1,13 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
   <a class="navbar-brand btn btn-light" href="<?php echo base_url()?>">
     <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="icon">
-    AISPS STORE
+    <span class="display-5">AISPS STORE</span>
   </a>
-
   <div class="col-8 mr-3 text-center text-light">
     <span class="lead">SELAMAT DATANG DI AISPS STORE <?php echo $pengguna["nama_pengguna"]; ?></span>
   </div>
-  <?php if($status != "admin"){?>
+  <?php if($status != "admin" && $status != ""){?>
     <div>
       <a href="<?php echo base_url('index.php/keranjang')?>" class="btn btn-primary">
           <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="keranjang">  
@@ -31,7 +30,7 @@
         <li class="mr-3 nav-item">
           <input type="text" name="search" id="search" class="form-control" placeholder="masukkan kata kunci">
         </li>
-        <?php if($status == "admin"){?>
+        <?php if($status == "admin" && $status != ""){?>
           <li>
             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#tambahproduk">
               <span>Tambah Produk</span>
@@ -41,7 +40,7 @@
       <?php } ?>
     </ul>
     <ul class="navbar-nav">
-      <?php if($username != ""){?>
+      <?php if($username != "" ){?>
         <li class="nav-item">
             <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/login/logout')?>" tabindex="-1">
                 Logout
