@@ -12,6 +12,7 @@ class Home extends CI_Controller {
 		$data["pengguna"] = $this->home_model->getpengguna($username);
 		$data["produk_minggu"] = $this->home_model->getprodukminggu();
 		$data["status"] = $_SESSION["status"];
+		$data["halaman"] = "utama";
         $this->load->view('header',$data);
 		$this->load->view('home/home',$data);
 	}
@@ -124,6 +125,17 @@ class Home extends CI_Controller {
 		}else{
 			redirect(base_url());
 		}
-    }
+	}
+	
+	public function search($halaman,$search){
+		$search_produk = str_replace('%20', ' ', $search);
+		$data["produk_search"] = $this->home_model->search($halaman,$search_produk);
+		if($halaman != "utaman"){
+			$data["title"] = $halaman;
+		}else{
+			$data["title"] = "Minggu Ini";
+		}
+		$this->load->view('home/search',$data);
+	}
 
 }

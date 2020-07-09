@@ -14,6 +14,7 @@ class Kategori extends CI_Controller {
 		$data["pengguna"] = $this->home_model->getpengguna($username);
 		$data["produk_pria"] = $this->kategori_model->getprodukpria();
 		$data["status"] = $_SESSION["status"];
+		$data["halaman"] = "Pria";
         $this->load->view('header',$data);
 		$this->load->view('home/pria',$data);
 	}
@@ -24,6 +25,7 @@ class Kategori extends CI_Controller {
 		$data["pengguna"] = $this->home_model->getpengguna($username);
 		$data["produk_wanita"] = $this->kategori_model->getprodukwanita();
 		$data["status"] = $_SESSION["status"];
+		$data["halaman"] = "Wanita";
         $this->load->view('header',$data);
 		$this->load->view('home/wanita',$data);
     }
@@ -34,6 +36,7 @@ class Kategori extends CI_Controller {
 		$data["pengguna"] = $this->home_model->getpengguna($username);
 		$data["produk_anak"] = $this->kategori_model->getprodukanak();
 		$data["status"] = $_SESSION["status"];
+		$data["halaman"] = "Anak-Anak";
         $this->load->view('header',$data);
 		$this->load->view('home/anak',$data);
     }

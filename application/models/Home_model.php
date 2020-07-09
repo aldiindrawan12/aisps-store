@@ -48,5 +48,17 @@ class Home_model extends CI_model
         $this->db->update('produk', $data_produk);
     }
 
+    public function search($halaman,$search){
+        date_default_timezone_set('Asia/Bangkok'); //set timezone waktu
+        $tanggal_minggu = date('Y-m-d', strtotime('-7 days', strtotime( date('Y-m-d') )))." 00-00-00";
+
+        if($halaman != "utama"){
+            $this->db->where("kategori_produk = ",$halaman);
+        }else{
+            $this->db->where("tanggal_masuk > ",$tanggal_minggu);
+        }
+        $this->db->like("nama_produk",$search);
+        return $this->db->get("produk")->result_array();
+    }
     
 }

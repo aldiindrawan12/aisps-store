@@ -29,6 +29,7 @@
         </li>
         <li class="mr-3 nav-item">
           <input type="text" name="search" id="search" class="form-control" placeholder="masukkan kata kunci">
+          <input type="text" value="<?php echo base_url('index.php/home/search/').$halaman."/"?>" id="link" hidden>
         </li>
         <?php if($status == "admin" && $status != ""){?>
           <li>

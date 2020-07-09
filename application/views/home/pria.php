@@ -145,11 +145,11 @@
 <!-- akhir Modal tambah produk-->
 
 <!-- tampilan produk -->
-<div class="container mt-3">
+<div class="container mt-3" id="konten">
   <div class="text-center">
     <h1>Product Pria</h1>
   </div>
-  <div class="row">
+  <div class="row" >
     <?php foreach($produk_pria as $value){?>
         <div class="col-6 col-sm-3">
             <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
@@ -238,5 +238,6 @@
 <script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
 </body>
 </html>
