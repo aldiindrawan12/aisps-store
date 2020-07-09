@@ -17,7 +17,7 @@
 </nav>
 <div class="navbar navbar-expand-lg bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:40px;" alt="toggle"></span>
+      <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:40px;" alt="toggle"></span>
   </button>
   <ul class="navbar-nav">
     <li class="mr-3 nav-item">

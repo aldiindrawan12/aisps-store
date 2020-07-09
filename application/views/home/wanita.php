@@ -8,6 +8,7 @@
 
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
 
 </head>
 <body>
@@ -151,20 +152,32 @@
   </div>
   <div class="row">
     <?php foreach($produk_wanita as $value){?>
-        <div class="col-6 col-sm-3">
+      <div class="konten border border-dark p-3 rounded">
             <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
-            <figure class="figure p-3 rounded border border-primary" style="width:15vmax;height:25vmax;">
-                  <img src="<?php echo base_url('assets/img/').$value["gambar"] ?>" class="figure-img img-fluid rounded" style="width:15vmax;height:15vmax;" alt="...">
-                  <figcaption class="figure-caption text-center">
-                    <span><?= $value["nama_produk"]?></span>
-                  </figcaption>
-                  <figcaption class="figure-caption text-left">
-                    Rp.<span><?= $value["harga"]?></span>
-                  </figcaption>
-                  <figcaption class="figure-caption text-left">
-                    <span><?= $value["stok_produk"]?></span> Tersedia
-                  </figcaption>
-                </figure>
+              <div class="container">
+               <table class="m-auto">
+                 <tr>
+                  <td class="text-center">
+                    <img class="gambar" src="<?php echo base_url('assets/img/').$value["gambar"]?>" alt="gambar">
+                  </td>
+                 </tr>
+                 <tr>
+                  <td class="text-center">
+                    <span class="text-nama"><?= $value["nama_produk"]?></span>
+                  </td>
+                 </tr>
+                 <tr>
+                  <td>
+                    <span class="text">Rp.<?= $value["harga"]?></span>
+                  </td>
+                 </tr>
+                 <tr>
+                  <td>
+                    <span class="text"><?= $value["stok_produk"]?> Tersedia</span>
+                  </td>
+                 </tr>
+               </table>
+              </div>
             </a>
         </div>
     <?php } ?>  
