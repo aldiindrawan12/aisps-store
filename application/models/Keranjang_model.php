@@ -11,7 +11,7 @@ class Keranjang_model extends CI_model
         return $this->db->get_where("keranjang",array("id_pengguna"=>$id_pengguna))->result_array();
     }
     public function getkeranjangbyid($id_keranjang){
-        return $this->db->get_where("keranjang",array("id_keranjang"=>$id_keranjang))->rowx_array();
+        return $this->db->get_where("keranjang",array("id_keranjang"=>$id_keranjang))->row_array();
     }
     public function hapus_keranjang($id_keranjang){
         $this->db->where("id_keranjang",$id_keranjang);

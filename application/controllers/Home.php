@@ -10,7 +10,7 @@ class Home extends CI_Controller {
 	{
 		$data["username"] = $username = $_SESSION["pelanggan_user"];
 		$data["pengguna"] = $this->home_model->getpengguna($username);
-		$data["produk_bulan"] = $this->home_model->getprodukbulan();
+		$data["produk_minggu"] = $this->home_model->getprodukminggu();
 		$data["status"] = $_SESSION["status"];
         $this->load->view('header',$data);
 		$this->load->view('home/home',$data);
@@ -77,7 +77,7 @@ class Home extends CI_Controller {
 		redirect(base_url());
 	}
 
-	public function edit_produk(){
+	public function edit_produk($asal){
 
 		$config['upload_path'] = './assets/img/'; //letak folder file yang akan diupload
         $config['allowed_types'] = 'gif|jpg|png|img|jpeg'; //jenis file yang dapat diterima
@@ -102,12 +102,28 @@ class Home extends CI_Controller {
 			"gambar" => $gambar
 		);
 		$this->home_model->edit_produk($data_produk);
-		redirect(base_url());
+		if($asal == "pria"){
+			redirect(base_url('index.php/kategori/pria'));
+		}else if($asal == "wanita"){
+			redirect(base_url('index.php/kategori/wanita'));
+		}else if($asal == "anak"){
+			redirect(base_url('index.php/kategori/anak'));
+		}else{
+			redirect(base_url());
+		}
 	}
 
-	public function hapus_produk($id_produk){
-        $this->home_model->hapus_produk($id_produk);
-        redirect(base_url());
+	public function hapus_produk($id_produk,$asal){
+		$this->home_model->hapus_produk($id_produk);
+		if($asal == "pria"){
+			redirect(base_url('index.php/kategori/pria'));
+		}else if($asal == "wanita"){
+			redirect(base_url('index.php/kategori/wanita'));
+		}else if($asal == "anak"){
+			redirect(base_url('index.php/kategori/anak'));
+		}else{
+			redirect(base_url());
+		}
     }
 
 }

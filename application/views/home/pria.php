@@ -77,12 +77,12 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">edit Produk</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php echo form_open_multipart('home/edit_produk')?>
+      <?php echo form_open_multipart('home/edit_produk/pria')?>
         <div class="modal-body">
         <input type="text" name="vid" id="vid" hidden>
           <div class="form-group">
@@ -143,13 +143,14 @@
   </div>
 </div>
 <!-- akhir Modal tambah produk-->
+
 <!-- tampilan produk -->
 <div class="container mt-3">
   <div class="text-center">
-    <h1>Product Minggu Ini</h1>
+    <h1>Product Pria</h1>
   </div>
   <div class="row">
-    <?php foreach($produk_minggu as $value){?>
+    <?php foreach($produk_pria as $value){?>
         <div class="col-6 col-sm-3">
             <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
                 <figure class="figure p-3 rounded border border-primary">
@@ -196,7 +197,7 @@
           "min" : 0
         });
         $("#link-hapus").attr({
-          "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]
+          "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]+"/pria"
         });
         $("#link-edit").attr({
           "id" : data["id_produk"]

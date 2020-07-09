@@ -19,13 +19,13 @@
     <ul class="navbar-nav mr-auto">
       <?php if($page != "keranjang"){?>
         <li class="nav-item">
-          <a class="btn btn-light mr-3" href="#" tabindex="-1">Pria</a>
+          <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/kategori/pria')?>" tabindex="-1">Pria</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-light mr-3" href="#" tabindex="-1">Wanita</a>
+          <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/kategori/wanita')?>" tabindex="-1">Wanita</a>
         </li>
         <li class="nav-item">
-          <a class="btn btn-light mr-3" href="#" tabindex="-1">Anak-Anak</a>
+          <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/kategori/anak')?>" tabindex="-1">Anak-Anak</a>
         </li>
         <li class="mr-3 nav-item">
           <input type="text" name="search" id="search" class="form-control" placeholder="masukkan kata kunci">

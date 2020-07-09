@@ -6,7 +6,10 @@ class Home_model extends CI_model
         $user =  $this->db->get_where("user",array("username"=>$username))->row_array();
         return $this->db->get_where("pengguna",array("id_pengguna"=>$user["id_pengguna"]))->row_array();
     }
-    public function getprodukbulan(){
+    public function getprodukminggu(){
+        date_default_timezone_set('Asia/Bangkok'); //set timezone waktu
+        $tanggal_minggu = date('Y-m-d', strtotime('-7 days', strtotime( date('Y-m-d') )))." 00-00-00";
+        $this->db->where("tanggal_masuk >=",$tanggal_minggu);
         return $this->db->get("produk")->result_array();
     }
     public function getprodukbyid($id_produk){
