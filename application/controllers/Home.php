@@ -130,7 +130,7 @@ class Home extends CI_Controller {
 	public function search($halaman,$search){
 		$search_produk = str_replace('%20', ' ', $search);
 		$data["produk_search"] = $this->home_model->search($halaman,$search_produk);
-		if($halaman != "utaman"){
+		if($halaman != "utama"){
 			$data["title"] = $halaman;
 		}else{
 			$data["title"] = "Minggu Ini";
