@@ -15,6 +15,24 @@
         width: 100%;
         height: 25vh;
     }
+    .div{
+        width: 30%;
+    }
+    .keranjang .text, .brand span{
+        font-size:1.5vmax;
+    }
+    .keranjang img, .brand img{
+        width:3vmax;
+    }
+    .pesanan-detail{
+        width:65%;
+    }
+    .pesanan{
+        width: 35%;
+    }
+    .data-pesanan{
+        width: 100%;
+    }
 }
 @media screen and (max-width: 800px) {
     .konten{
@@ -32,5 +50,25 @@
     .gambar{
         width: 250px;
         height: 200px;
+    }
+    .div{
+        margin-top: 5%;
+        width: 90%;
+    }
+    .keranjang,.brand{
+        padding: 0%;
+        background-color: transparent;
+    }
+    .keranjang .text, .brand span{
+        font-size: 0;
+    }
+    .keranjang img, .brand img{
+        width: 40px;
+    }
+    .pesanan{
+        width: 90%;
+    }
+    .data-pesanan{
+        width: 100%;
     }
 }

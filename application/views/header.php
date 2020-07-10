@@ -1,16 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-  <a class="navbar-brand btn btn-light" href="<?php echo base_url()?>" style="width:15vmax;">
-    <img src="<?php echo base_url('assets/img/keranjang.png') ?>" style="width:3vmax;" alt="icon">
-    <span class="display-5" style="font-size:1.5vmax;">AISPS STORE</span>
+  <a class="btn btn-light mr-auto brand" href="<?php echo base_url()?>" style="width:15vmax;">
+    <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="icon">
+    <span class="display-5">AISPS STORE</span>
   </a>
-  <div class="mr-auto ml-auto text-center text-light">
-    <span class="lead" style="font-size:1.5vmax;">SELAMAT DATANG DI AISPS STORE <?php echo $pengguna["nama_pengguna"]; ?></span>
+  <div class="mr-auto ml-auto text-center text-light bg-secondary p-3">
+    <span class="lead" style="font-size:1.5vmax;">SELAMAT DATANG DI AISPS STORE</span></br>
+    <span class="lead" style="font-size:1.5vmax;"> <?php echo $pengguna["nama_pengguna"]; ?> </span>
   </div>
   <?php if($status != "admin" && $status != ""){?>
     <div>
-      <a href="<?php echo base_url('index.php/keranjang')?>" style="width:15vmax;" class="btn btn-primary">
-          <img src="<?php echo base_url('assets/img/keranjang.png') ?>" style="width:3vmax;" alt="keranjang">  
-          <span class="" style="font-size:1.5vmax;">Keranjang</span>
+      <a href="<?php echo base_url('index.php/keranjang')?>" style="width:15vmax;" class="btn btn-primary keranjang">
+          <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="keranjang">  
+          <span class="text" >Keranjang</span>
       </a>
     </div>
   <?php }?>
@@ -19,15 +20,17 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:40px;" alt="toggle"></span>
   </button>
-  <ul class="navbar-nav">
-    <li class="mr-3 nav-item">
-      <input type="text" name="search" id="search" class="form-control" placeholder="masukkan kata kunci"  style="width:25vmax;font-size:1.5vmax;">
-      <input type="text" value="<?php echo base_url('index.php/home/search/').$halaman."/"?>" id="link" hidden>
-    </li>
-  </ul>
+  <?php if($page != "keranjang" && $halaman != "checkout"){?>
+    <ul class="navbar-nav">
+      <li class="mr-3 nav-item">
+        <input type="text" name="search" id="search" class="form-control" placeholder="masukkan kata kunci"  style="width:25vmax;font-size:1.5vmax;">
+        <input type="text" value="<?php echo base_url('index.php/home/search/').$halaman."/"?>" id="link" hidden>
+      </li>
+    </ul>
+  <?php }?>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav mr-auto">
-      <?php if($page != "keranjang"){?>
+      <?php if($page != "keranjang" && $halaman != "checkout"){?>
         <li class="nav-item">
           <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/kategori/pria')?>" style="font-size:1.5vmax;" tabindex="-1">Pria</a>
         </li>
@@ -47,7 +50,12 @@
       <?php } ?>
     </ul>
     <ul class="navbar-nav">
-      <?php if($username != "" ){?>
+      <?php if($status != "admin"){?>
+        <li class="nav-item">
+          <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/pesanan')?>" style="font-size:1.5vmax;" tabindex="-1">Pesanan Saya</a>
+        </li>  
+      <?php }
+      if($username != "" ){?>
         <li class="nav-item">
             <a class="btn btn-light mr-3" style="font-size:1.5vmax;" href="<?php echo base_url('index.php/login/logout')?>" tabindex="-1">
                 Logout

@@ -17,6 +17,7 @@ class Kategori extends CI_Controller {
 		$data["halaman"] = "Pria";
         $this->load->view('header',$data);
 		$this->load->view('home/pria',$data);
+		$this->load->view('footer');
 	}
 	
 	public function wanita()
@@ -28,6 +29,7 @@ class Kategori extends CI_Controller {
 		$data["halaman"] = "Wanita";
         $this->load->view('header',$data);
 		$this->load->view('home/wanita',$data);
+		$this->load->view('footer');
     }
 	
 	public function anak()
@@ -39,5 +41,6 @@ class Kategori extends CI_Controller {
 		$data["halaman"] = "Anak-Anak";
         $this->load->view('header',$data);
 		$this->load->view('home/anak',$data);
+		$this->load->view('footer');
     }
 }

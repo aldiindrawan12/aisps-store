@@ -8,39 +8,10 @@
 
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
 
 </head>
 <body>
-<!-- Modal detail produk-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><span id="d-nama"></span></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="<?php echo base_url('index.php/home/add_keranjang')?>" method="POST">
-        <div class="modal-body">
-            <img src="" class="figure-img img-fluid rounded w-50 float-left" alt="..." id="d-gambar">
-            <span class="text-danger" id="d-harga">Rp.150000</span></br>
-            <span class="text-danger" id="d-deskripsi">deskripsi</span></br>
-            <input type="text" id="v-harga" name="v-harga" hidden>
-            <input type="text" id="v-id" name="v-id" hidden>
-            <div class="input-group">
-                <label for="v-jumlah" class="form-control">Jumlah Produk</label>
-                <input type="text" name="v-jumlah" id="v-jumlah" placeholder="Jumlah Barang">
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">+ Keranjang</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- akhir Modal detail produk-->
 
 <!-- tampilan keranjang -->
 <div class="container mt-3">
@@ -98,7 +69,7 @@
             <td colspan="5" class="text-lg-right">Total Biaya</td>
             <td class="text-center">Rp.<span><?= $total_seluruh?></span></td>
             <td class="text-center">
-                <a href="" class="btn btn-dark">
+                <a href="<?php echo base_url('index.php/checkout/')?>" class="btn btn-dark">
                     <span>Checkout</span>
                 </a>
             </td>

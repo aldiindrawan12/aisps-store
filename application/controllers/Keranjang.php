@@ -13,7 +13,8 @@ class Keranjang extends CI_Controller {
         $data["page"] = "keranjang";
         $data["keranjang"] = $this->keranjang_model->getkeranjang($data["pengguna"]["id_pengguna"]);
         $this->load->view('header',$data);
-		$this->load->view('keranjang/keranjang',$data);
+        $this->load->view('keranjang/keranjang',$data);
+        $this->load->view('footer');
     }
     
     public function hapus_keranjang($id_keranjang){

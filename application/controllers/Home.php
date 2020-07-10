@@ -15,6 +15,7 @@ class Home extends CI_Controller {
 		$data["halaman"] = "utama";
         $this->load->view('header',$data);
 		$this->load->view('home/home',$data);
+		$this->load->view('footer');
 	}
 
 	//fungsi mendapatkan data tabel produk
