@@ -18,7 +18,7 @@
   <div class="text-center">
     <h1>Keranjang Anda</h1>
   </div>
-  <div class="tbl-keranjang">
+  <div class="tbl-keranjang-desktop">
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
             <tr>
@@ -72,6 +72,63 @@
                 <?php if($total_seluruh > 0){?>
                     <td class="text-center">
                         <a href="<?php echo base_url('index.php/checkout/')?>" class="btn btn-dark">
+                            <span>Checkout</span>
+                        </a>
+                    </td>
+                <?php }?>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="tbl-keranjang-mobile">
+    <table class="table table-bordered">
+        <tbody>
+            <?php $total_seluruh = 0;
+            foreach($keranjang as $value){?>
+                <tr>
+                    <td rowspan=4 class="text-center">
+                        <img src="<?php echo base_url('assets/img/').$value["gambar"]?>" class="figure-img img-fluid rounded" alt="..." id="k-gambar">
+                    </td>
+                        <tr><td><?= $value["nama_produk"]?></td></tr>
+                        <tr><td><?= $value["ukuran"]?></td></tr>
+                        <tr><td>Rp.<?= $value["harga"]?></td></tr>
+                </tr>
+                <tr>
+                    <td width="50%" class="text-center">
+                        <?php if($value["jumlah_barang"] > 0){?>
+                            <a href="#" class="btn btn-light border-dark w-25" id="<?= $value["id_keranjang"]?> " onclick="min(this)">
+                                <img width="30%" src="<?php echo base_url('assets/img/min.png')?>" alt="min">
+                            </a>
+                        <?php }else{?>
+                            <a href="#" class="btn btn-light border-dark w-25">
+                                <img width="30%" src="<?php echo base_url('assets/img/min.png')?>" alt="min">
+                            </a>
+                        <?php }?>
+                        <span class="mr-3 ml-3" id="t-jumlah"><?= $value["jumlah_barang"]?></span>
+                        <a href="#" class="btn btn-light border-dark w-25" id="<?= $value["id_keranjang"]?> " onclick="plus(this)">
+                            <img width="30%" src="<?php echo base_url('assets/img/plus.png')?>" alt="plus">
+                        </a>
+                    </td>
+                    <td width="50%">Rp.<span id="t-total"><?= $value["total_harga"]?></span></td>
+                </tr>
+                <tr>
+                    <td colspan=2 class="text-center">
+                        <a href="<?php echo base_url('index.php/keranjang/hapus_keranjang/').$value["id_keranjang"]?>" class="btn btn-dark float-right">
+                            <span>Hapus</span>
+                        </a>
+                    </td>
+                </tr>
+            <?php 
+                $total_seluruh += $value["total_harga"];
+            }?>
+            <tr>
+                <td class="text-lg-right">Total Biaya Keseluruhan</td>
+                <td class="text-center">Rp.<span><?= $total_seluruh?></span></td>
+            </tr>
+            <tr>
+                <?php if($total_seluruh > 0){?>
+                    <td class="text-center" colspan=2>
+                        <a href="<?php echo base_url('index.php/checkout/')?>" class="btn btn-dark float-right">
                             <span>Checkout</span>
                         </a>
                     </td>

@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-  <a class="btn btn-light mr-auto brand" href="<?php echo base_url()?>" style="width:15vmax;">
+  <a class="btn btn-light mr-auto brand" href="<?php echo base_url()?>">
     <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="icon">
     <span class="display-5">AISPS STORE</span>
   </a>
   <div class="mr-auto ml-auto text-center text-light bg-secondary p-3">
-    <span class="lead" style="font-size:1.5vmax;">SELAMAT DATANG DI AISPS STORE</span></br>
-    <span class="lead" style="font-size:1.5vmax;"> <?php echo $pengguna["nama_pengguna"]; ?> </span>
+    <span class="lead" style="font-size:2vmax;">SELAMAT DATANG DI AISPS STORE</span></br>
+    <span class="lead" style="font-size:2vmax;"> <?php echo $pengguna["nama_pengguna"]; ?> </span>
   </div>
   <?php if($status != "admin" && $status != ""){?>
     <div>
-      <a href="<?php echo base_url('index.php/keranjang')?>" style="width:15vmax;" class="btn btn-primary keranjang">
+      <a href="<?php echo base_url('index.php/keranjang')?>" class="btn btn-primary keranjang">
           <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="keranjang">  
           <span class="text" >Keranjang</span>
       </a>
@@ -18,7 +18,7 @@
 </nav>
 <div class="navbar navbar-expand-lg bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:40px;" alt="toggle"></span>
+      <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:30px;" alt="toggle"></span>
   </button>
   <?php if($page != "keranjang" && $halaman != "checkout"){?>
     <ul class="navbar-nav">
