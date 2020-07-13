@@ -26,17 +26,17 @@
                     <td>
                         <form action="<?php echo base_url('index.php/checkout/addpesanan')?>" method="POST">
                             <div class="form-group mt-4">
-                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Lengkap">
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Lengkap" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat Pengiriman</label>
-                                <textarea name="alamat" id="alamat" cols="6" rows="3" class="form-control"></textarea>
+                                <textarea name="alamat" id="alamat" cols="6" rows="3" class="form-control" required></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="no" id="no" class="form-control" placeholder="No Handphone">
+                                <input type="text" name="no" id="no" class="form-control" placeholder="No Handphone" required>
                             </div>
                             <div class="form-group">
-                                <label for="pesan-pelanggan">Pesan Untuk Penjual</label>
+                                <label for="pesan-pelanggan">Pesan Untuk Penjual (Optional)</label>
                                 <textarea name="pesan-pelanggan" id="pesan-pelanggan" cols="6" rows="3" class="form-control"></textarea>
                             </div>
                             <input type="submit" class="btn btn-primary" value="Buat Pesanan">

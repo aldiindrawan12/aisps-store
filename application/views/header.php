@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
-  <a class="btn btn-light mr-auto brand" href="<?php echo base_url()?>">
-    <img src="<?php echo base_url('assets/img/keranjang.png') ?>" alt="icon">
+  <a class="btn btn-light mr-auto brand text-center" href="<?php echo base_url()?>">
+    <img src="<?php echo base_url('assets/img/as.png') ?>" alt="icon">
     <span class="display-5">AISPS STORE</span>
   </a>
   <div class="mr-auto ml-auto text-center text-light bg-secondary p-3">
