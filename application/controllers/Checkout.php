@@ -27,6 +27,7 @@ class Checkout extends CI_Controller {
 		$nama = $this->input->post("nama");
 		$alamat = $this->input->post("alamat");
 		$no = $this->input->post("no");
+		$pesan_pelanggan = $this->input->post("pesan-pelanggan");
 		//akhir data dari form
 
 		$keranjang = $this->keranjang_model->getkeranjang($data["pengguna"]["id_pengguna"]);
@@ -37,10 +38,13 @@ class Checkout extends CI_Controller {
 		foreach($keranjang as $value){
 			$data_produk = array(
 				"id_produk" => $value["id_produk"],
+				"nama_produk" => $value["nama_produk"],
 				"ukuran" => $value["ukuran"],
-				"jumlah" => $value["jumlah_barang"]
+				"jumlah" => $value["jumlah_barang"],
+				"total" => $value["total_harga"]
 			);
 			array_push($array_produk,$data_produk);
+			$this->checkout_model->update_produk($value["id_produk"],$value["jumlah_barang"]);
 		}
 		
 		//hitung total pembayaran
@@ -61,7 +65,9 @@ class Checkout extends CI_Controller {
 			"status" => "Menuggu Pembayaran",
 			"pesanan" => $json,
 			"id_pengguna" => $data["pengguna"]["id_pengguna"],
-			"total" => $total
+			"total" => $total,
+			"pesan_pelanggan" => $pesan_pelanggan
+
 		);		
 		//akhir data untuk isi database
 		$this->checkout_model->addpesanan($data_pesanan);

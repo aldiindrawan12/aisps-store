@@ -35,6 +35,10 @@
                             <div class="form-group">
                                 <input type="text" name="no" id="no" class="form-control" placeholder="No Handphone">
                             </div>
+                            <div class="form-group">
+                                <label for="pesan-pelanggan">Pesan Untuk Penjual</label>
+                                <textarea name="pesan-pelanggan" id="pesan-pelanggan" cols="6" rows="3" class="form-control"></textarea>
+                            </div>
                             <input type="submit" class="btn btn-primary" value="Buat Pesanan">
                         </form>
                     </td>

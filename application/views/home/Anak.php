@@ -59,7 +59,7 @@
 
         <?php if($status == "admin"){?>
           <div class="modal-footer">
-            <a href="" id="link-edit" class="btn btn-primary" data-toggle="modal" data-target="#editproduk" onclick="dataeditproduk(this)">
+            <a href="" id="link-edit" class="btn btn-primary link-edit" data-toggle="modal" data-target="#editproduk" onclick="dataeditproduk(this)">
               <span>Edit</span>
             </a>
             <a href="" id="link-hapus" class="btn btn-primary">
@@ -73,7 +73,7 @@
 </div>
 <!-- akhir Modal detail produk-->
 
-<!-- Modal tambah produk-->
+<!-- Modal edit produk-->
 <div class="modal fade" id="editproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -133,7 +133,7 @@
           </div>
           <div class="form-group">
             <label for="gambar-produk">Gambar Produk</label>
-            <input type="file" name="vgambar" id="vgambar" class="form-control">
+            <input type="file" name="vgambar" id="vgambar" class="form-control" required> 
           </div>
         </div>
         <div class="modal-footer">
@@ -143,7 +143,7 @@
     </div>
   </div>
 </div>
-<!-- akhir Modal tambah produk-->
+<!-- akhir Modal edit produk-->
 
 <!-- tampilan produk -->
 <div class="container mt-3" id="konten">
@@ -212,7 +212,7 @@
         $("#link-hapus").attr({
           "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]+"/anak"
         });
-        $("#link-edit").attr({
+        $(".link-edit").attr({
           "id" : data["id_produk"]
         });
       }

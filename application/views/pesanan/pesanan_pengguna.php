@@ -50,10 +50,9 @@
 <div class="modal fade" id="detailpesanan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Detail Pesanan</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reload()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -70,16 +69,18 @@
                 <tbody id="isi">
                 </tbody>
             </table>
-            <table id="konfir-pembay">
-                <tr>
-                    <h5>Silakan Lakukan Pembayaran</h5>
-                </tr>
-                <tr>
-                    <h6><strong>Bank BRI</strong></h6>
-                    <h6><strong>No Rekening : 213123123123123</strong></h6>
-                    <h6><strong>Atas Nama   : Aldi Indrawan</strong></h6>
-                </tr>
+            <table class="table table-bordered">
+            <tr>
+                <td>Pesan Pembeli</td>
+                <td width="75%"><span id="pesan"></span></td>
+            </tr>
             </table>
+            <tr>
+                <td>
+                    <form method="POST" id="pengiriman">
+                    </form>
+                </td>
+            </tr>
         </div>
 
     </div>
@@ -98,28 +99,25 @@
                 id: id_pesanan
             },
             success: function(data) {
-                    $("#konfir-pembay").empty();
                     $("#isi").empty();
+                    $("#pengiriman").empty()
                     data_pesanan = jQuery.parseJSON(data["pesanan"]); //decode di javascript
                     var total_seluruh = 0;
                     for(i=0;i<data_pesanan.length;i++){
                         $("#isi").append("<tr><td>"+ data_pesanan[i]["nama_produk"] +"</td><td>"+ data_pesanan[i]["jumlah"] +"</td><td>Rp."+ data_pesanan[i]["total"] +"</td></tr>")
                         total_seluruh = total_seluruh + parseInt(data_pesanan[i]["total"]);
                     }
+                    $("#pesan").text(data["pesan_pelanggan"])
                     $("#isi").append("<tr><td colspan=2>Total Pembayaran</td><td>Rp."+ total_seluruh +"</td></tr>");
-                    if(data["status"] == "Menuggu Pembayaran"){
-                        $("#konfir-pembay").append("<td><a class='btn btn-primary' id='konfirmasi'>Konfirmasi Pembayaran</a></td><td><a class='btn btn-warning' id='cancel'>Batalkan Pesanan</a></td>");
+                    if(data["status"] == "LUNAS"){
+                        $("#pengiriman").append("<div class='form-group' id='resi'><input type='text' name='no_resi' id='no_resi' placeholder='Masukan No Resi' class='form-control' required></div>")
+                        $("#pengiriman").append("<input type='submit' value='Konfirmasi Pengiriman' class='btn btn-primary'>");
                     }else{
-                        $("#konfir-pembay").empty();
+                        $("#pengiriman").empty()
                     }
-                    $("#konfirmasi").attr({
-                        "href":"<?php echo base_url('index.php/pesanan/pesanan_lunas/') ?>"+id_pesanan
+                    $("#pengiriman").attr({
+                        "action":"<?php echo base_url('index.php/pesanan/pesanan_dikirim/') ?>"+id_pesanan
                     });
-                    $("#cancel").attr({
-                        "href":"<?php echo base_url('index.php/pesanan/pesanan_cancel/') ?>"+id_pesanan
-                    });
-                    
-                    
             }
         });
     }

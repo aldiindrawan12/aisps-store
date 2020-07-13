@@ -71,4 +71,7 @@
     .data-pesanan{
         width: 100%;
     }
+    .tbl-keranjang{
+        opacity: 0;
+    }
 }

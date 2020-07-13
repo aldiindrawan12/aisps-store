@@ -54,6 +54,10 @@
         <li class="nav-item">
           <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/pesanan')?>" style="font-size:1.5vmax;" tabindex="-1">Pesanan Saya</a>
         </li>  
+      <?php }else if($status == "admin" && $status != ""){?>
+        <li class="nav-item">
+          <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/pesanan/pesanan_pengguna')?>" style="font-size:1.5vmax;" tabindex="-1">Pesanan Pelanggan</a>
+        </li>
       <?php }
       if($username != "" ){?>
         <li class="nav-item">
@@ -87,20 +91,20 @@
       <?php echo form_open_multipart('home/add_produk')?>
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" name="nama-produk" id="nama-produk" class="form-control" placeholder="Nama Produk">
+            <input type="text" name="nama-produk" id="nama-produk" class="form-control" placeholder="Nama Produk" required>
           </div>
           <div class="form-group">
-            <textarea rows="3" type="text" name="deskripsi-produk" id="deskripsi-produk" class="form-control" placeholder="Deskripsi"></textarea>
+            <textarea rows="3" type="text" name="deskripsi-produk" id="deskripsi-produk" class="form-control" placeholder="Deskripsi" required></textarea>
           </div>
           <div class="form-group">
-            <input type="text" name="harga-produk" id="harga-produk" class="form-control" placeholder="Harga Produk">
+            <input type="text" name="harga-produk" id="harga-produk" class="form-control" placeholder="Harga Produk" required>
           </div>
           <div class="form-group">
-            <input type="number" name="stok-produk" id="stok-produk" class="form-control" placeholder="Stok Produk" min=0>
+            <input type="number" name="stok-produk" id="stok-produk" class="form-control" placeholder="Stok Produk" min=1 required>
           </div>
           <div class="form-group">
             <label for="kategori-produk">Kategori Produk</label>
-            <select name="kategori-produk" id="kategori-produk" class="form-control">
+            <select name="kategori-produk" id="kategori-produk" class="form-control custom-select" required>
               <option value="Pria">Pria</option>
               <option value="Wanita">Wanita</option>
               <option value="Anak-Anak">Anak-Anak</option>
@@ -108,7 +112,7 @@
           </div>
           <div class="form-group">
             <label for="tipe-produk">Tipe Produk</label>
-            <select name="tipe-produk" id="tipe-produk" class="form-control">
+            <select name="tipe-produk" id="tipe-produk" class="form-control custom-select" required>
               <option value="Atasan">Atasan</option>
               <option value="Bawahan">Bawahan</option>
               <option value="Topi">Topi</option>
@@ -119,7 +123,7 @@
           </div>
           <div class="form-group">
             <label for="ukuran-produk">Ukuran Produk</label>
-            <select name="ukuran-produk" id="ukuran-produk" class="form-control">
+            <select name="ukuran-produk" id="ukuran-produk" class="form-control custom-select" required>
               <option value="Tidak Ada">Tidak Ada</option>
               <option value="S">S</option>
               <option value="M">M</option>
@@ -129,11 +133,11 @@
             </select>
           </div>        
           <div class="form-group">
-            <input type="number" name="diskon-produk" id="diskon-produk" class="form-control" placeholder="Diskon Produk" min=0 max=100>
+            <input type="number" name="diskon-produk" id="diskon-produk" class="form-control" placeholder="Diskon Produk" min=0 max=100 >
           </div>
           <div class="form-group">
             <label for="gambar-produk">Gambar Produk</label>
-            <input type="file" name="gambar-produk" id="gambar-produk" class="form-control">
+            <input type="file" name="gambar-produk" id="gambar-produk" class="form-control" required>
           </div>
         </div>
         <div class="modal-footer">
