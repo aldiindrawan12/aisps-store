@@ -45,4 +45,8 @@ class Pesanan_model extends CI_model
         $this->db->where("id_pesanan",$id_pesanan);
         return $this->db->delete("pesanan");
     }
+    public function getpesananstatus($status){
+        $this->db->where("status",$status);
+        return $this->db->get("pesanan")->result_array();
+    }
 }

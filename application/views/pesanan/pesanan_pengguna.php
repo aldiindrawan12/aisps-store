@@ -14,8 +14,32 @@
 </head>
 <body>
 <!-- tampilan pesanan-->
+
 <div class="container mt-5">
-    <div class="data-pesanan">
+    <?php if($status != ""){?>
+        <div class="navbar navbar-expand-lg bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#status">
+                <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:30px;" alt="toggle"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="status">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="menunggu">Menunggu Pembayaran</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="lunas">Lunas</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="pengiriman">Dalam Pengiriman</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="selesai">Selesai</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <?php }?>
+    <div class="data-pesanan" id="konten-pesanan">
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -46,6 +70,7 @@
 <!-- akhir tampilan pesanan-->
 
 
+
 <!-- Modal detail pesanan-->
 <div class="modal fade" id="detailpesanan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -58,6 +83,7 @@
       </div>
 
         <div class="modal-body">
+        <h5><span id="tanggal-pesanan"></span></h5>
             <table class=" table table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -77,7 +103,7 @@
             </table>
             <tr>
                 <td>
-                    <form method="POST" id="pengiriman">
+                    <form method="POST" id="pengiriman-konfirmasi">
                     </form>
                 </td>
             </tr>
@@ -100,7 +126,7 @@
             },
             success: function(data) {
                     $("#isi").empty();
-                    $("#pengiriman").empty()
+                    $("#pengiriman-konfirmasi").empty()
                     data_pesanan = jQuery.parseJSON(data["pesanan"]); //decode di javascript
                     var total_seluruh = 0;
                     for(i=0;i<data_pesanan.length;i++){
@@ -110,14 +136,15 @@
                     $("#pesan").text(data["pesan_pelanggan"])
                     $("#isi").append("<tr><td colspan=2>Total Pembayaran</td><td>Rp."+ total_seluruh +"</td></tr>");
                     if(data["status"] == "LUNAS"){
-                        $("#pengiriman").append("<div class='form-group' id='resi'><input type='text' name='no_resi' id='no_resi' placeholder='Masukan No Resi' class='form-control' required></div>")
-                        $("#pengiriman").append("<input type='submit' value='Konfirmasi Pengiriman' class='btn btn-primary'>");
+                        $("#pengiriman-konfirmasi").append("<div class='form-group' id='resi'><input type='text' name='no_resi' id='no_resi' placeholder='Masukan No Resi' class='form-control' required></div>")
+                        $("#pengiriman-konfirmasi").append("<input type='submit' value='Konfirmasi Pengiriman' class='btn btn-primary'>");
                     }else{
-                        $("#pengiriman").empty()
+                        $("#pengiriman-konfirmasi").empty()
                     }
                     $("#pengiriman").attr({
                         "action":"<?php echo base_url('index.php/pesanan/pesanan_dikirim/') ?>"+id_pesanan
                     });
+                    $("#tanggal-pesanan").text(data["tanggal_pesanan"]); 
             }
         });
     }
@@ -126,5 +153,8 @@
 <script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<input type="text" value="<?php echo base_url('index.php/pesanan/status/')?>" id="link-status" hidden>
+<script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
 </body>
 </html>

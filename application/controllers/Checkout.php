@@ -20,6 +20,7 @@ class Checkout extends CI_Controller {
 	}
 	
 	public function addpesanan(){
+		date_default_timezone_set('Asia/Bangkok'); //set timezone waktu
 		$data["username"] = $username = $_SESSION["pelanggan_user"];
 		$data["pengguna"] = $this->keranjang_model->getpengguna($username);
 
@@ -62,11 +63,13 @@ class Checkout extends CI_Controller {
 			"nama_pemesan" => $nama,
 			"alamat" => $alamat,
 			"no" => $no,
-			"status" => "Menuggu Pembayaran",
+			"status" => "Menunggu Pembayaran",
 			"pesanan" => $json,
 			"id_pengguna" => $data["pengguna"]["id_pengguna"],
 			"total" => $total,
-			"pesan_pelanggan" => $pesan_pelanggan
+			"pesan_pelanggan" => $pesan_pelanggan,
+			"tanggal_pesanan" => date("Y-m-d H-i-s")
+
 
 		);		
 		//akhir data untuk isi database

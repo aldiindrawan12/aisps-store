@@ -50,4 +50,10 @@ class Pesanan extends CI_Controller {
         $this->load->view("footer");
     }
 
+    public function status($status){
+        $status = str_replace('%20', ' ', $status);
+        $data["pesanan_status"] = $this->pesanan_model->getpesananstatus($status);
+        $this->load->view("pesanan/hasil_status",$data);
+    }
+
 }

@@ -15,7 +15,30 @@
 <body>
 <!-- tampilan pesanan-->
 <div class="container mt-5">
-    <div class="data-pesanan">
+    <?php if($status != ""){?>
+        <div class="navbar navbar-expand-lg bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#status">
+                <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:30px;" alt="toggle"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="status">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="menunggu">Menunggu Pembayaran</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="lunas">Lunas</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="pengiriman">Dalam Pengiriman</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="btn btn-light mr-3" href="#" style="font-size:1vmax;" tabindex="-1" id="selesai">Selesai</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <?php }?>
+    <div class="data-pesanan" id="konten-pesanan">
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -59,6 +82,7 @@
       </div>
 
         <div class="modal-body">
+            <h5><span id="tanggal-pesanan"></span></h5>
             <table class=" table table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -107,7 +131,7 @@
                         total_seluruh = total_seluruh + parseInt(data_pesanan[i]["total"]);
                     }
                     $("#isi").append("<tr><td colspan=2>Total Pembayaran</td><td>Rp."+ total_seluruh +"</td></tr>");
-                    if(data["status"] == "Menuggu Pembayaran"){
+                    if(data["status"] == "Menunggu Pembayaran"){
                         $("#konfir-pembay").append("<td><a class='btn btn-primary' id='konfirmasi'>Konfirmasi Pembayaran</a></td><td><a class='btn btn-warning' id='cancel'>Batalkan Pesanan</a></td>");
                     }else{
                         $("#konfir-pembay").empty();
@@ -118,8 +142,7 @@
                     $("#cancel").attr({
                         "href":"<?php echo base_url('index.php/pesanan/pesanan_cancel/') ?>"+id_pesanan
                     });
-                    
-                    
+                    $("#tanggal-pesanan").text(data["tanggal_pesanan"]);      
             }
         });
     }
@@ -128,5 +151,7 @@
 <script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<input type="text" value="<?php echo base_url('index.php/pesanan/status/')?>" id="link-status" hidden>
+<script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
 </body>
 </html>
