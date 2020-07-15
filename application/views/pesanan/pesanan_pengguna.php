@@ -13,8 +13,10 @@
 
 </head>
 <body>
+<div class="container mt-5">
+    <a href="<?php echo base_url('index.php/pesanan/laporan_penjualan/') ?>" class="btn btn bg-light">Export Laporan Penjualan</a>
+</div>
 <!-- tampilan pesanan-->
-
 <div class="container mt-5">
     <?php if($status != ""){?>
         <div class="navbar navbar-expand-lg bg-light">
@@ -85,6 +87,7 @@
       </div>
 
         <div class="modal-body">
+        <a id="cetak-laporan" class="btn btn bg-light">Cetak laporan</a>
         <h5><span id="tanggal-pesanan"></span></h5>
             <table class=" table table-bordered">
                 <thead class="thead-dark">
@@ -152,6 +155,9 @@
                     }
                     $("#pengiriman-konfirmasi").attr({
                         "action":"<?php echo base_url('index.php/pesanan/pesanan_dikirim/') ?>"+id_pesanan
+                    });
+                    $("#cetak-laporan").attr({
+                        "href":"<?php echo base_url('index.php/pesanan/cetak_laporan/') ?>"+id_pesanan
                     });
                     $("#tanggal-pesanan").text(data["tanggal_pesanan"]); 
             }
