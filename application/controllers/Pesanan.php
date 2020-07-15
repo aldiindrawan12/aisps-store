@@ -135,7 +135,79 @@ class Pesanan extends CI_Controller {
     }
 
     public function laporan_penjualan(){
-        $data["pesanan"] = $this->pesanan_model->getallpesanan();
-        $this->load->view('pesanan/laporan-penjualan',$data);
+        $data = $this->pesanan_model->getallpesanan();
+        include './assets/spreedsheet/PHPExcel.php'; //memanggil plugin
+
+        $excel = new PHPExcel();
+
+        //style row
+        $style_row = array(      
+            'alignment' => array(        
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)      
+            ),      
+            'borders' => array(        
+                'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),
+                'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),        
+                'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN)
+            )    
+        );
+
+        //set judul tabe;
+        $excel->setActiveSheetIndex(0)->setCellValue('A1', "DATA Penjualan AISPS STORE");
+        $excel->getActiveSheet()->mergeCells('A1:D1');
+        $excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); 
+        
+
+        // Set width kolom    
+        $excel->getActiveSheet()->getColumnDimension('A')->setWidth(5);
+        $excel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $excel->getActiveSheet()->getColumnDimension('C')->setWidth(45);
+        $excel->getActiveSheet()->getColumnDimension('D')->setWidth(45);
+        $excel->getActiveSheet()->getStyle('3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); 
+
+        //set header table
+        $excel->setActiveSheetIndex(0)->setCellValue('A3', "NO"); 
+        $excel->setActiveSheetIndex(0)->setCellValue('B3', "#ID Pesanan");
+        $excel->setActiveSheetIndex(0)->setCellValue('C3', "Tanggal Pesanan");
+        $excel->setActiveSheetIndex(0)->setCellValue('D3', "Total");
+        $excel->getActiveSheet()->getStyle('A3')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B3')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('C3')->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('D3')->applyFromArray($style_row);
+
+        //set isi table
+        $total = 0;
+        $i=3;
+        $n = 0;
+        foreach($data as $value) {
+            $total += $value["total"];
+            $i += 1;
+            $n += 1;
+            $excel->setActiveSheetIndex(0)->setCellValue('A'.$i, $n);
+            $excel->setActiveSheetIndex(0)->setCellValue('B'.$i, "#".$value["id_pesanan"]);
+            $excel->setActiveSheetIndex(0)->setCellValue('C'.$i, $value["tanggal_pesanan"]);
+            $excel->setActiveSheetIndex(0)->setCellValue('D'.$i, "Rp.".number_format($value["total"],2,',','.'));
+            
+            $excel->getActiveSheet()->getStyle('A'.$i)->applyFromArray($style_row);
+            $excel->getActiveSheet()->getStyle('B'.$i)->applyFromArray($style_row);
+            $excel->getActiveSheet()->getStyle('C'.$i)->applyFromArray($style_row);
+            $excel->getActiveSheet()->getStyle('D'.$i)->applyFromArray($style_row);
+        }
+
+        $excel->setActiveSheetIndex(0)->setCellValue('A'.($i+1), "Total Pendapatan");   
+        $excel->setActiveSheetIndex(0)->setCellValue('D'.($i+1), "Rp.".number_format($total,2,',','.'));   
+        $excel->getActiveSheet()->mergeCells('A'.($i+1).':C'.($i+1));
+        $excel->getActiveSheet()->getStyle('A'.($i+1))->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('B'.($i+1))->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('C'.($i+1))->applyFromArray($style_row);
+        $excel->getActiveSheet()->getStyle('D'.($i+1))->applyFromArray($style_row);
+
+        // Proses file excel    
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');    
+        header('Content-Disposition: attachment; filename="Data Penjualan AISPS.xlsx"');
+        header('Cache-Control: max-age=0');    
+        $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');    
+        $write->save('php://output');
     }
 }

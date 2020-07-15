@@ -55,7 +55,7 @@
                 <?php foreach($pesanan as $value){?>
                     <tr>
                         <td>#<?= $value["id_pesanan"]?></td>
-                        <td>Rp.<?= $value["total"] ?></td>
+                        <td>Rp.<?= number_format($value["total"],2,',','.') ?></td>
                         <td>
                             <?= $value["status"] ?>
                             <?php if($value["no_resi"] != ""){?>
