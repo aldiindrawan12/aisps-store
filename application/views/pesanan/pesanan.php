@@ -54,8 +54,12 @@
                         <td>#<?= $value["id_pesanan"]?></td>
                         <td>Rp.<?= $value["total"] ?></td>
                         <td>
-                            <?= $value["status"] ?></br>
-                            <strong>No Resi : <?= $value["no_resi"] ?></strong>
+                            <?= $value["status"] ?>
+                            <?php if($value["no_resi"] == "" && $value["status"]=="Menunggu Pembayaran"){?>
+                                <a href="" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#uploadbukti" id="<?= $value["id_pesanan"]?>" onclick="uploadbukti(this)"><span>+ Bukti</span></a>
+                            <?php }else if($value["no_resi"] != ""){?>
+                                <strong>No Resi : <?= $value["no_resi"] ?></strong>
+                            <?php }?>
                         </td>
                         <td class="text-center">
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#detailpesanan" id="<?= $value["id_pesanan"]?>" onclick="getpesanan(this)"><span>Lihat</span></a>
@@ -94,16 +98,47 @@
                 <tbody id="isi">
                 </tbody>
             </table>
+            <div id="rekening">
+                <table>
+                    <tr>
+                        <h5>Silakan Lakukan Pembayaran</h5>
+                    </tr>
+                    <tr>
+                        <h6><strong>Bank BRI</strong></h6>
+                        <h6><strong>No Rekening : 213123123123123</strong></h6>
+                        <h6><strong>Atas Nama   : Aldi Indrawan</strong></h6>
+                    </tr>
+                </table>
+            </div>
             <table id="konfir-pembay">
-                <tr>
-                    <h5>Silakan Lakukan Pembayaran</h5>
-                </tr>
-                <tr>
-                    <h6><strong>Bank BRI</strong></h6>
-                    <h6><strong>No Rekening : 213123123123123</strong></h6>
-                    <h6><strong>Atas Nama   : Aldi Indrawan</strong></h6>
-                </tr>
+                
             </table>
+        </div>
+
+    </div>
+  </div>
+</div>
+<!-- akhir Modal detail pesanan-->
+<!-- Modal detail pesanan-->
+<div class="modal fade" id="uploadbukti" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Bukti Pembayaran</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+        <div class="modal-body">
+        <?php echo form_open_multipart('pesanan/uploadbukti')?>
+            <input type="text" name="id-pesanan" id="id-pesanan" hidden>
+            <div class="form-group">
+                <input type="file" name="bukti" id="bukti" class="form-control" required>
+            </div>
+            <input type="submit" name="" id="" value="Simpan" class="btn btn-primary">
+        <?php echo form_close(); ?>               
         </div>
 
     </div>
@@ -132,19 +167,24 @@
                     }
                     $("#isi").append("<tr><td colspan=2>Total Pembayaran</td><td>Rp."+ total_seluruh +"</td></tr>");
                     if(data["status"] == "Menunggu Pembayaran"){
-                        $("#konfir-pembay").append("<td><a class='btn btn-primary' id='konfirmasi'>Konfirmasi Pembayaran</a></td><td><a class='btn btn-warning' id='cancel'>Batalkan Pesanan</a></td>");
+                        $("#konfir-pembay").append("<td><a class='btn btn-warning' id='cancel'>Batalkan Pesanan</a></td>");
+                        $("#rekening").removeAttr("style");
                     }else{
+                        $("#rekening").attr({
+                            "style":"display:none"
+                        });
                         $("#konfir-pembay").empty();
                     }
-                    $("#konfirmasi").attr({
-                        "href":"<?php echo base_url('index.php/pesanan/pesanan_lunas/') ?>"+id_pesanan
-                    });
                     $("#cancel").attr({
                         "href":"<?php echo base_url('index.php/pesanan/pesanan_cancel/') ?>"+id_pesanan
                     });
                     $("#tanggal-pesanan").text(data["tanggal_pesanan"]);      
             }
         });
+    }
+    function uploadbukti(a){
+        var id_pesanan = a.id;
+        $("#id-pesanan").val(id_pesanan);
     }
 </script>
 

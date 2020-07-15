@@ -24,10 +24,10 @@ class Pesanan extends CI_Controller {
         echo json_encode($data);
     }
 
-    public function pesanan_lunas($id_pesanan){
-        $this->pesanan_model->pesanan_lunas($id_pesanan);
-        redirect(base_url("index.php/pesanan"));
-    }
+    // public function pesanan_lunas($id_pesanan){
+    //     $this->pesanan_model->pesanan_lunas($id_pesanan);
+    //     redirect(base_url("index.php/pesanan"));
+    // }
 
     public function pesanan_dikirim($id_pesanan){
         $resi = $this->input->post("no_resi");
@@ -53,7 +53,21 @@ class Pesanan extends CI_Controller {
     public function status($status){
         $status = str_replace('%20', ' ', $status);
         $data["pesanan_status"] = $this->pesanan_model->getpesananstatus($status);
+        $data["status"] = $_SESSION["status"];
         $this->load->view("pesanan/hasil_status",$data);
     }
 
+    public function uploadbukti(){
+        $config['upload_path'] = './assets/img-bukti/'; //letak folder file yang akan diupload
+        $config['allowed_types'] = 'gif|jpg|png|img|jpeg'; //jenis file yang dapat diterima
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('bukti')) {
+            $this->upload->data();
+            $gambar =  $this->upload->data('file_name');
+        }
+        $this->pesanan_model->uploadbukti($this->input->post('id-pesanan'),$gambar);
+        redirect(base_url("index.php/pesanan"));
+    }
 }

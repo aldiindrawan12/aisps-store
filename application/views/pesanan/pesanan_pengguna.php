@@ -55,8 +55,10 @@
                         <td>#<?= $value["id_pesanan"]?></td>
                         <td>Rp.<?= $value["total"] ?></td>
                         <td>
-                            <?= $value["status"] ?></br>
-                            <strong>No Resi : <?= $value["no_resi"] ?></strong>
+                            <?= $value["status"] ?>
+                            <?php if($value["no_resi"] != ""){?>
+                                <strong>No Resi : <?= $value["no_resi"] ?></strong>
+                            <?php }?>
                         </td>
                         <td class="text-center">
                             <a href="" class="btn btn-primary" data-toggle="modal" data-target="#detailpesanan" id="<?= $value["id_pesanan"]?>" onclick="getpesanan(this)"><span>Lihat</span></a>
@@ -101,8 +103,11 @@
                 <td width="75%"><span id="pesan"></span></td>
             </tr>
             </table>
+            <div id="bukti">
+            
+            </div>
             <tr>
-                <td>
+                <td width="100%">
                     <form method="POST" id="pengiriman-konfirmasi">
                     </form>
                 </td>
@@ -136,12 +141,16 @@
                     $("#pesan").text(data["pesan_pelanggan"])
                     $("#isi").append("<tr><td colspan=2>Total Pembayaran</td><td>Rp."+ total_seluruh +"</td></tr>");
                     if(data["status"] == "LUNAS"){
-                        $("#pengiriman-konfirmasi").append("<div class='form-group' id='resi'><input type='text' name='no_resi' id='no_resi' placeholder='Masukan No Resi' class='form-control' required></div>")
+                        $("#pengiriman-konfirmasi").append("<td class='bg-dark text-center'><img src='<?php echo base_url('assets/img-bukti/') ?>"+data['bukti']+"' alt='bukti' width='50%'></td>")
+                        $("#pengiriman-konfirmasi").append("<div class='form-group mt-4' id='resi'><input type='text' name='no_resi' id='no_resi' placeholder='Masukan No Resi' class='form-control' required></div>")
                         $("#pengiriman-konfirmasi").append("<input type='submit' value='Konfirmasi Pengiriman' class='btn btn-primary'>");
                     }else{
                         $("#pengiriman-konfirmasi").empty()
                     }
-                    $("#pengiriman").attr({
+                    if(data["status"] == "Dalam Pengiriman"){
+                        $("#pengiriman-konfirmasi").append("<td class='bg-dark text-center'><img src='<?php echo base_url('assets/img-bukti/') ?>"+data['bukti']+"' alt='bukti' width='50%'></td>")
+                    }
+                    $("#pengiriman-konfirmasi").attr({
                         "action":"<?php echo base_url('index.php/pesanan/pesanan_dikirim/') ?>"+id_pesanan
                     });
                     $("#tanggal-pesanan").text(data["tanggal_pesanan"]); 

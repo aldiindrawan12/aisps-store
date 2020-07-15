@@ -16,11 +16,11 @@ class Pesanan_model extends CI_model
     public function getpesananbyid($id_pesanan){
         return $this->db->get_where("pesanan",array("id_pesanan"=>$id_pesanan))->row_array();
     }
-    public function pesanan_lunas($id_pesanan){
-        $this->db->where("id_pesanan",$id_pesanan);
-        $this->db->set("status","LUNAS");
-        return $this->db->update("pesanan");
-    }
+    // public function pesanan_lunas($id_pesanan){
+    //     $this->db->where("id_pesanan",$id_pesanan);
+    //     $this->db->set("status","LUNAS");
+    //     return $this->db->update("pesanan");
+    // }
     public function pesanan_dikirim($id_pesanan,$resi){
         $this->db->where("id_pesanan",$id_pesanan);
         $this->db->set("status","Dalam Pengiriman");
@@ -48,5 +48,11 @@ class Pesanan_model extends CI_model
     public function getpesananstatus($status){
         $this->db->where("status",$status);
         return $this->db->get("pesanan")->result_array();
+    }
+    public function uploadbukti($id_pesanan,$gambar){
+        $this->db->where("id_pesanan",$id_pesanan);
+        $this->db->set("bukti",$gambar);
+        $this->db->set("status","LUNAS");
+        return $this->db->update("pesanan");
     }
 }

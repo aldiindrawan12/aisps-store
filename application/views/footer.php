@@ -59,7 +59,7 @@
                     <a href="https://www.facebook.com/profile.php?id=100031564820835">
                         <img src="<?php echo base_url('assets/img/fb.png')?>" alt="" style="width:15%">
                     </a>
-                    <a href="#">
+                    <a href="https://api.whatsapp.com/send?phone=62895620408193">
                         <img src="<?php echo base_url('assets/img/wa.png')?>" alt="" style="width:15%">
                     </a>
                 </span>
