@@ -13,9 +13,7 @@
 
 </head>
 <body>
-<div class="container mt-5">
-    <a href="<?php echo base_url('index.php/pesanan/laporan_penjualan/') ?>" class="btn btn bg-light">Export Laporan Penjualan</a>
-</div>
+
 <!-- tampilan pesanan-->
 <div class="container mt-5">
     <?php if($status != ""){?>

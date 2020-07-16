@@ -14,8 +14,12 @@
 <body>
 
 <!-- tampilan laporan -->
+<div class="container mt-5">
+    <a href="<?php echo base_url('index.php/pesanan/laporan_penjualan/') ?>" class="btn btn bg-light">Export Laporan Penjualan</a>
+    <a href="<?php echo base_url('index.php/laporan/laporan_produk_terjual/') ?>" class="btn btn bg-light">Export Laporan Produk Terjual</a>
+</div>
 <div class="container mt-3">
-    <h4 class="text-center">Laporan Penjualan</h4>
+    <h4 class="text-center">Laporan Penjualan Produk</h4>
     <h4 class="text-center">AISPS STORE</h4>
 
     <table class="table table-bordered">
@@ -28,18 +32,30 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach($produk as $value){?>
+            <?php $id_produk = array();
+            foreach($terjual as $value2){?>
                 <tr>
+                    <?php foreach($produk as $value){
+                        if($value2["id_produk"] == $value["id_produk"]){?>
+                            <td>#<?= $value["id_produk"]?></td>
+                            <td><?= $value["nama_produk"]?></td>
+                            <td><?= $value["stok_produk"]?></td>
+                            <td><?= $value2["terjual"]?></td>
+                    <?php 
+                        array_push($id_produk,$value["id_produk"]);
+                        }
+                    }?>
+                </tr>
+            <?php }
+            foreach($produk as $value){
+                if(!in_array($value["id_produk"],$id_produk)){?>
                     <td>#<?= $value["id_produk"]?></td>
                     <td><?= $value["nama_produk"]?></td>
                     <td><?= $value["stok_produk"]?></td>
-                    <?php foreach($terjual as $value2){
-                        if($value2["id_produk"] == $value["id_produk"]){?>
-                            <td><?= $value2["terjual"]?></td>
-                    <?php }
-                    }?>
-                </tr>
-            <?php }?>
+                    <td>0</td>
+            <?php 
+                }
+            }?>
         </tbody>
         
     </table>

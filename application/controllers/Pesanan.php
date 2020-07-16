@@ -205,7 +205,7 @@ class Pesanan extends CI_Controller {
 
         // Proses file excel    
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');    
-        header('Content-Disposition: attachment; filename="Data Penjualan AISPS.xlsx"');
+        header('Content-Disposition: attachment; filename="Data Penjualan AISPS '.date("d-m-Y").'.xlsx"');
         header('Cache-Control: max-age=0');    
         $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');    
         $write->save('php://output');
