@@ -4,7 +4,12 @@
   </div>
   <div class="row" id="konten">
     <?php foreach($produk_search as $value){?>
-      <div class="konten border border-dark p-3 rounded">
+      <div class="konten border border-dark p-3 rounded <?php if($value['stok_produk'] == 0){ echo 'konten-habis'; }?>">
+            <?php if($value["stok_produk"] == 0){?>
+              <div class="habis">
+                <h1>Habis</h1>
+              </div>
+            <?php }?>
             <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
               <div class="container">
                <table class="m-auto">

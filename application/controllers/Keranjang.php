@@ -10,7 +10,7 @@ class Keranjang extends CI_Controller {
 	{
 		$data["username"] = $username = $_SESSION["pelanggan_user"];
         $data["pengguna"] = $this->keranjang_model->getpengguna($username);
-        $data["page"] = "keranjang";
+        $data["halaman"] = "keranjang";
         $data["keranjang"] = $this->keranjang_model->getkeranjang($data["pengguna"]["id_pengguna"]);
         $this->load->view('header',$data);
         $this->load->view('keranjang/keranjang',$data);

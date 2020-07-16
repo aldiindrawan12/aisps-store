@@ -44,6 +44,9 @@ class Checkout extends CI_Controller {
 				"jumlah" => $value["jumlah_barang"],
 				"total" => $value["total_harga"]
 			);
+			//update laporan
+			$this->checkout_model->updatelaporan($value["id_produk"],$value["jumlah_barang"]);
+			//akhir update laporan
 			array_push($array_produk,$data_produk);
 			$this->checkout_model->update_produk($value["id_produk"],$value["jumlah_barang"]);
 		}

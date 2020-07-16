@@ -47,7 +47,7 @@
                 <input type="text" id="v-harga" name="v-harga" hidden>
                 <input type="text" id="v-id" name="v-id" hidden>
                 <div class="input-group">
-                    <input type="number" name="v-jumlah" id="v-jumlah" placeholder="0" style="width:25%" class="form-control text-sm-center">
+                    <input type="number" name="v-jumlah" id="v-jumlah" placeholder="1" style="width:25%" class="form-control text-sm-center">
                 </div>   
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary form-control">+ Keranjang</button>
@@ -152,7 +152,12 @@
   </div>
   <div class="row">
     <?php foreach($produk_wanita as $value){?>
-      <div class="konten border border-dark p-3 rounded">
+      <div class="konten border border-dark p-3 rounded <?php if($value['stok_produk'] == 0){ echo 'konten-habis'; }?>">
+            <?php if($value["stok_produk"] == 0){?>
+              <div class="habis">
+                <h1>Habis</h1>
+              </div>
+            <?php }?>
             <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
               <div class="container">
                <table class="m-auto">
@@ -207,7 +212,7 @@
         $("#d-gambar").attr("src","<?php echo base_url('assets/img/')?>"+data["gambar"]);
         $("#v-jumlah").attr({
           "max" : data["stok_produk"],
-          "min" : 0
+          "min" : 1
         });
         $("#link-hapus").attr({
           "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]+"/wanita"

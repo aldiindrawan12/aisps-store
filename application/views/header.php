@@ -16,11 +16,12 @@
     </div>
   <?php }?>
 </nav>
+
 <div class="navbar navbar-expand-lg bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class=""><img src="<?php echo base_url('assets/img/toggle.png') ?>"  style="width:30px;" alt="toggle"></span>
   </button>
-  <?php if($page != "keranjang" && $halaman != "checkout"){?>
+  <?php if($halaman != "keranjang" && $halaman != "checkout" && $halaman != "laporan"){?>
     <ul class="navbar-nav">
       <li class="mr-3 nav-item">
         <input type="text" name="search" id="search" class="form-control" placeholder="masukkan kata kunci"  style="width:25vmax;font-size:1.5vmax;">
@@ -30,7 +31,7 @@
   <?php }?>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav mr-auto">
-      <?php if($page != "keranjang" && $halaman != "checkout"){?>
+      <?php if($halaman != "keranjang" && $halaman != "checkout" && $halaman != "laporan"){?>
         <li class="nav-item">
           <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/kategori/pria')?>" style="font-size:1.5vmax;" tabindex="-1">Pria</a>
         </li>
@@ -40,13 +41,6 @@
         <li class="nav-item">
           <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/kategori/anak')?>" style="font-size:1.5vmax;" tabindex="-1">Anak-Anak</a>
         </li>
-        <?php if($status == "admin" && $status != ""){?>
-          <li>
-            <a href="" class="btn btn-primary" data-toggle="modal" data-target="#tambahproduk">
-              <span>Tambah Produk</span>
-            </a>
-          </li>
-        <?php }?>
       <?php } ?>
     </ul>
     <ul class="navbar-nav">
@@ -58,6 +52,18 @@
         <li class="nav-item">
           <a class="btn btn-light mr-3" href="<?php echo base_url('index.php/pesanan/pesanan_pengguna')?>" style="font-size:1.5vmax;" tabindex="-1">Pesanan Pelanggan</a>
         </li>
+        <?php if($status == "admin" && $status != ""){?>
+          <li>
+            <a href="" class="btn btn-light" data-toggle="modal" data-target="#tambahproduk">
+              <span style="font-size:1.5vmax;">Tambah Produk</span>
+            </a>
+          </li>
+          <li>
+            <a href="<?php echo base_url('index.php/laporan')?>" class="btn btn-light">
+              <span style="font-size:1.5vmax;">Laporan</span>
+            </a>
+          </li>
+        <?php }?>
       <?php }
       if($username != "" ){?>
         <li class="nav-item">
@@ -113,6 +119,7 @@
           <div class="form-group">
             <label for="tipe-produk">Tipe Produk</label>
             <select name="tipe-produk" id="tipe-produk" class="form-control custom-select" required>
+            <option value="Set">Set</option>
               <option value="Atasan">Atasan</option>
               <option value="Bawahan">Bawahan</option>
               <option value="Topi">Topi</option>

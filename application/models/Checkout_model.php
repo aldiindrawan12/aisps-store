@@ -18,4 +18,26 @@ class Checkout_model extends CI_model
         $this->db->set("stok_produk",$stok_baru);
         return $this->db->update("produk");
     }
+
+    public function updatelaporan($id_produk,$jumlah){
+        $laporan = $this->db->get("laporan_penjualan")->result_array();
+        $i = 0;
+        foreach ($laporan as $value){
+            if($value["id_produk"] == $id_produk){
+                $terjual = $value["terjual"]+$jumlah;
+                $this->db->where("id_produk",$id_produk);
+                $this->db->set("terjual",$terjual);
+                $this->db->update("laporan_penjualan");
+                $i += 1;
+            }
+        }
+        if($i == 0){
+            $data = array(
+                "id_produk" => $id_produk,
+                "terjual" =>$jumlah
+            );
+            $this->db->insert("laporan_penjualan",$data);
+        }
+        return "berhasil";
+   }
 }

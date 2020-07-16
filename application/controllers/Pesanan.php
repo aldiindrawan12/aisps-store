@@ -37,7 +37,7 @@ class Pesanan extends CI_Controller {
 
     public function pesanan_cancel($id_pesanan){
         $this->pesanan_model->pesanan_cancel($id_pesanan);
-        redirect(base_url("index.php/pesanan/pesanan_pengguna"));
+        redirect(base_url("index.php/pesanan"));
     }
 
     public function pesanan_pengguna(){

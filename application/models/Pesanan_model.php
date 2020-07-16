@@ -1,5 +1,5 @@
 <?php
-error_reporting(0); //menyembunyikan error
+//error_reporting(0); //menyembunyikan error
 class Pesanan_model extends CI_model
 {
     public function getpengguna($username){
@@ -34,12 +34,22 @@ class Pesanan_model extends CI_model
         $this->db->set("stok_produk",$stok_baru);
         return $this->db->update("produk");
     }
+
+    public function update_laporan($id_produk,$jumlah_pesan){
+        $laporan = $this->db->get_where("laporan_penjualan",array("id_produk"=>$id_produk))->row_array();
+        $terjual_baru = $laporan["terjual"] - $jumlah_pesan;
+        $this->db->where("id_produk",$id_produk);
+        $this->db->set("terjual",$terjual_baru);
+        return $this->db->update("laporan_penjualan");
+    }
+
     public function pesanan_cancel($id_pesanan){
         //update stok
         $pesanan = $this->getpesananbyid($id_pesanan);
         $produk_pesanan = json_decode($pesanan["pesanan"],true);
         for($i=0;$i<count($produk_pesanan);$i++){
             echo $produk_pesanan[$i]["id_produk"];
+            $this->update_laporan($produk_pesanan[$i]["id_produk"],$produk_pesanan[$i]["jumlah"]);
             $this->update_produk($produk_pesanan[$i]["id_produk"],$produk_pesanan[$i]["jumlah"]);
         }
         $this->db->where("id_pesanan",$id_pesanan);
