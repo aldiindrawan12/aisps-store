@@ -96,5 +96,26 @@ class Laporan extends CI_Controller {
         $write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');    
         $write->save('php://output');
     }
+
+    public function view(){
+        $search = $_POST['search']['value']; 
+        $limit = $_POST['length']; 
+        $start = $_POST['start']; 
+        $order_index = $_POST['order'][0]['column']; 
+        $order_field = $_POST['columns'][$order_index]['data']; 
+        $order_ascdesc = $_POST['order'][0]['dir']; 
+        $sql_total = $this->laporan_model->count_all(); 
+        $sql_data = $this->laporan_model->filter($search, $limit, $start, $order_field, $order_ascdesc); 
+        $sql_filter = $this->laporan_model->count_filter($search); 
+        $callback = array(        
+            'draw'=>$_POST['draw'], 
+            'recordsTotal'=>$sql_total,        
+            'recordsFiltered'=>$sql_filter,        
+            'data'=>$sql_data    
+        );    
+        
+        header('Content-Type: application/json');    
+        echo json_encode($callback); 
+    }
     
 }

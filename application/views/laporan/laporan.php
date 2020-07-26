@@ -7,8 +7,9 @@
     <title>Laporan Penjualan</title>  
 
     <!-- link bootsrapt -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css"/>
 
 </head>
 <body>
@@ -18,71 +19,54 @@
     <a href="<?php echo base_url('index.php/pesanan/laporan_penjualan/') ?>" class="btn btn bg-light">Export Laporan Penjualan</a>
     <a href="<?php echo base_url('index.php/laporan/laporan_produk_terjual/') ?>" class="btn btn bg-light">Export Laporan Produk Terjual</a>
 </div>
-<div class="container mt-3">
+<div class="container">
     <h4 class="text-center">Laporan Penjualan Produk</h4>
     <h4 class="text-center">AISPS STORE</h4>
-
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th class="text-center" width="10%">#ID Produk</th>
-                <th class="text-center" width="40%">Nama Produk</th>
-                <th class="text-center" width="20%">Stok Tersedia</th>
-                <th class="text-center" width="20%">Terjual</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $id_produk = array();
-            foreach($terjual as $value2){?>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="table-laporan">
+            <thead class="thead-dark">
                 <tr>
-                    <?php foreach($produk as $value){
-                        if($value2["id_produk"] == $value["id_produk"]){?>
-                            <td>#<?= $value["id_produk"]?></td>
-                            <td><?= $value["nama_produk"]?></td>
-                            <td><?= $value["stok_produk"]?></td>
-                            <td><?= $value2["terjual"]?></td>
-                    <?php 
-                        array_push($id_produk,$value["id_produk"]);
-                        }
-                    }?>
+                    <th>nama pemesan</th>
+                    <th>alamat</th>
+                    <th>status</th>
                 </tr>
-            <?php }
-            foreach($produk as $value){
-                if(!in_array($value["id_produk"],$id_produk)){?>
-                    <td>#<?= $value["id_produk"]?></td>
-                    <td><?= $value["nama_produk"]?></td>
-                    <td><?= $value["stok_produk"]?></td>
-                    <td>0</td>
-            <?php 
-                }
-            }?>
-        </tbody>
-        
-    </table>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
 </div>
 <!-- akhir tampilan laporan -->
 
-<!-- script  -->
-<script>
-    function min(a){
-        var id_keranjang = a.id;
-        $.ajax({
-            type: "GET",
-            url: "<?php echo base_url('index.php/keranjang/update_jumlah/min') ?>",
-            dataType: "text",
-            data: {
-                id: id_keranjang
-            },
-            success: function(data) {
-                location.reload();
-            }
-        });
-    }
-</script>
-<!-- akhir script  -->
-
-<script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>
+<!-- script untuk datatables -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>    
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script>    
+    var tabel = null;    
+    $(document).ready(function() {        
+        tabel = $('#table-laporan').DataTable({            
+            "processing": true,            
+            "serverSide": true,            
+            "ordering": true, 
+            "order": [[ 0, 'asc' ]],
+            "ajax":            
+            {                
+                "url": "<?php echo base_url('index.php/laporan/view') ?>",
+                "type": "POST"            
+            },            
+            "deferRender": true,            
+            "aLengthMenu": [[5, 10, 50],[ 5, 10, 50]],          
+            "columns": [                
+                { "data": "nama_pemesan" },
+                { "data": "alamat" },          
+                { "data": "status" }            
+            ],        
+        });    
+    });    
+</script>
+<!-- akhir script untuk datatables -->
 </body>
 </html>
