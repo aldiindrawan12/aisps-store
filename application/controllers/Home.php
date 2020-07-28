@@ -47,6 +47,7 @@ class Home extends CI_Controller {
 			);
 			$this->home_model->add_keranjang($data_keranjang);
 		}
+		$this->session->set_flashdata("keranjang","Sukses");
 		redirect(base_url());
 	}
 
@@ -76,6 +77,7 @@ class Home extends CI_Controller {
 			"tanggal_masuk" => date("Y-m-d H-i-s")
 		);
 		$this->home_model->add_produk($data_produk);
+		$this->session->set_flashdata("add_produk","Sukses");
 		redirect(base_url());
 	}
 
@@ -105,18 +107,23 @@ class Home extends CI_Controller {
 		);
 		$this->home_model->edit_produk($data_produk);
 		if($asal == "pria"){
+			$this->session->set_flashdata("edit_produk","Sukses");
 			redirect(base_url('index.php/kategori/pria'));
 		}else if($asal == "wanita"){
+			$this->session->set_flashdata("edit_produk","Sukses");
 			redirect(base_url('index.php/kategori/wanita'));
 		}else if($asal == "anak"){
+			$this->session->set_flashdata("edit_produk","Sukses");
 			redirect(base_url('index.php/kategori/anak'));
 		}else{
+			$this->session->set_flashdata("edit_produk","Sukses");
 			redirect(base_url());
 		}
 	}
 
 	public function hapus_produk($id_produk,$asal){
 		$this->home_model->hapus_produk($id_produk);
+		$this->session->set_flashdata("hapus_produk","Sukses");
 		if($asal == "pria"){
 			redirect(base_url('index.php/kategori/pria'));
 		}else if($asal == "wanita"){

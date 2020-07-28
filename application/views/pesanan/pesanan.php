@@ -9,10 +9,12 @@
 
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
 
 </head>
 <body>
+<div class="bukti" data-flashdata="<?= $this->session->flashdata("bukti")?>"></div>
 
 <!-- tampilan pesanan-->
 <div class="container mt-5">
@@ -198,5 +200,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <input type="text" value="<?php echo base_url('index.php/pesanan/status/')?>" id="link-status" hidden>
 <script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
+<script src="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.all.min.js') ?>"></script>
+<!-- sweetalert2 -->
+<script>
+  $(document).ready(function() {
+    var bukti = $(".bukti").data("flashdata");
+    // alert add produk
+    if(bukti){
+      Swal.fire({
+        title : "Bukti Pembayaran",
+        text:"Berhasil Ditambah",
+        icon:"success",
+        timer:1500
+      });
+    }
+  });
+</script>
+<!-- akhir sweetalert2 -->
 </body>
 </html>

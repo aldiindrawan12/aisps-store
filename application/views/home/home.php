@@ -9,9 +9,15 @@
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.css') ?>">
 
 </head>
 <body>
+<div class="login" data-flashdata="<?= $this->session->flashdata("login")?>"></div>
+<div class="add_produk" data-flashdata="<?= $this->session->flashdata("add_produk")?>"></div>
+<div class="edit_produk" data-flashdata="<?= $this->session->flashdata("edit_produk")?>"></div>
+<div class="hapus_produk" data-flashdata="<?= $this->session->flashdata("hapus_produk")?>"></div>
+<div class="keranjang" data-flashdata="<?= $this->session->flashdata("keranjang")?>"></div>
 
 <!-- Modal detail produk-->
 <div class="modal fade" id="detailproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,9 +68,9 @@
             <a href="" id="link-edit" class="btn btn-primary link-edit" data-toggle="modal" data-target="#editproduk" onclick="dataeditproduk(this)">
               <span>Edit</span>
             </a>
-            <a href="" id="link-hapus" class="btn btn-primary">
+            <button href="" class="btn btn-primary link-hapus" onclick="delete_produk(this)">
               <span>Hapus</span>
-            </a>
+            </button>
           </div>
         <?php } ?>
 
@@ -190,6 +196,95 @@
 </div>
 <!-- akhir tampilan produk -->
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
+<script src="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.all.min.js') ?>"></script>
+
+<!-- sweetalert2 -->
+<script>
+  $(document).ready(function() {
+    var login = $(".login").data("flashdata");
+    var add_produk = $(".add_produk").data("flashdata");
+    var edit_produk = $(".edit_produk").data("flashdata");
+    var hapus_produk = $(".hapus_produk").data("flashdata");
+    var keranjang = $(".keranjang").data("flashdata");
+    alert(keranjang);
+
+    // alert login
+    if(login){
+      Swal.fire({
+        title : "Berhasil Login",
+        text:"",
+        icon:"success",
+        timer:1500
+      });
+    }
+    // alert keranjang
+    if(keranjang){
+      Swal.fire({
+        title : "Produk",
+        text:"Berhasil Ditambah Ke Keranjang",
+        icon:"success",
+        timer:1500
+      });
+    }
+    // alert add produk
+    if(add_produk){
+      Swal.fire({
+        title : "Produk",
+        text:"Berhasil Ditambah",
+        icon:"success",
+        timer:1500
+      });
+    }
+    // alert edit produk
+    if(edit_produk){
+      Swal.fire({
+        title : "Produk",
+        text:"Berhasil Diubah",
+        icon:"success",
+        timer:1500
+      });
+    }
+  // alert berhasil hapus
+  if(hapus_produk){
+      Swal.fire({
+        title : "Produk",
+        text:"Berhasil Dihapus",
+        icon:"success",
+        timer:2000
+      });
+    }
+  });
+  // alert yakin delete
+  function delete_produk(a){
+      var href = "<?php echo base_url('index.php/home/hapus_produk/')?>"+a.id+"/home";
+      Swal.fire({
+        title : "Yakin Ingin Hapus",
+        text:"Data yang dihapus tidak dapat dikembalikan",
+        icon:"warning",
+        showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Ya",
+        cancelButtonText: "Tidak"
+      }).then((result) => {
+        if (result.value) {
+          document.location.href = href;
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title:'Dibatalkan',
+            text:'Data Produk Anda Aman',
+            icon:'error',
+            timer:1000
+          })
+        }
+      })
+    }
+</script>
+<!-- akhir sweetalert2 -->
+
 <!-- script ambil data produk -->
 <script>
   function dataproduk(a) {
@@ -214,9 +309,9 @@
           "max" : data["stok_produk"],
           "min" : 1
         });
-        $("#link-hapus").attr({
-          "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]+"/home"
-        });
+        $(".link-hapus").attr({
+          "id" : data["id_produk"]
+        })
         $(".link-edit").attr({
           "id" : data["id_produk"]
         });
@@ -252,10 +347,5 @@
   }
 </script>
 <!-- akhir script ambil data produk -->
-
-<script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
 </body>
 </html>

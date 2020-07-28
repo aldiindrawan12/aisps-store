@@ -9,11 +9,12 @@
 
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
 
 </head>
 <body>
-
+<div class="resi" data-flashdata="<?= $this->session->flashdata("resi")?>"></div>
 <!-- tampilan pesanan-->
 <div class="container mt-5">
     <?php if($status != ""){?>
@@ -169,5 +170,23 @@
 
 <input type="text" value="<?php echo base_url('index.php/pesanan/status/')?>" id="link-status" hidden>
 <script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
+<script src="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.all.min.js') ?>"></script>
+
+<!-- sweetalert2 -->
+<script>
+  $(document).ready(function() {
+    var resi = $(".resi").data("flashdata");
+    // alert add produk
+    if(resi){
+      Swal.fire({
+        title : "No Resi",
+        text:"Berhasil Ditambah",
+        icon:"success",
+        timer:1500
+      });
+    }
+  });
+</script>
+<!-- akhir sweetalert2 -->
 </body>
 </html>

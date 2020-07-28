@@ -32,11 +32,13 @@ class Pesanan extends CI_Controller {
     public function pesanan_dikirim($id_pesanan){
         $resi = $this->input->post("no_resi");
         $this->pesanan_model->pesanan_dikirim($id_pesanan,$resi);
+        $this->session->set_flashdata("resi","Sukses");
         redirect(base_url("index.php/pesanan/pesanan_pengguna"));
     }
 
     public function pesanan_cancel($id_pesanan){
         $this->pesanan_model->pesanan_cancel($id_pesanan);
+        $this->session->set_flashdata("cancel","Sukses");
         redirect(base_url("index.php/pesanan"));
     }
 
@@ -68,6 +70,7 @@ class Pesanan extends CI_Controller {
             $gambar =  $this->upload->data('file_name');
         }
         $this->pesanan_model->uploadbukti($this->input->post('id-pesanan'),$gambar);
+        $this->session->set_flashdata("bukti","Sukses");
         redirect(base_url("index.php/pesanan"));
     }
 
@@ -76,6 +79,13 @@ class Pesanan extends CI_Controller {
         $data = $this->pesanan_model->getpesananbyid($id_pesanan);        
 
         require './assets/fpdf/fpdf.php';
+
+		$this->SetFont('Arial','B',50);
+		$this->SetTextColor(255,192,203);
+		$this->Rotate(45,35,190);
+		$this->Text(45,35,'AISPS STORE Invoice');
+		$this->Rotate(0);
+
         $pdf = new FPDF('P','mm','A4');
         $pdf->AddPage();
 

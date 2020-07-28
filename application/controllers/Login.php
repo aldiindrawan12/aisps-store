@@ -16,6 +16,7 @@ class Login extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		//akhir validasi form
 		if ($this->form_validation->run() == false) { //jika validasi tidak gagal
+			$this->session->set_flashdata("gagal_login","Gagal");
 			$this->load->view('login/login');
 		} else {
 			$this->validationLogin();
@@ -40,11 +41,14 @@ class Login extends CI_Controller {
 				$_SESSION["pelanggan_user"] = $username;
 				$_SESSION["id_pelanggan"] = $user["id_pengguna"];
 				//akhir set session
+				$this->session->set_flashdata("login","Sukses");
 				redirect(base_url('index.php/home/index/'));
 			} else {
+				$this->session->set_flashdata("gagal_login","Gagal");
 				redirect(base_url('index.php/login/index'));
 			}
 		} else {
+			$this->session->set_flashdata("gagal_login","Gagal");
 			redirect(base_url('index.php/login/index/'));
 		}
 		//redirect("http://localhost/aisps_store/");		

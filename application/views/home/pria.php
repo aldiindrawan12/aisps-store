@@ -8,11 +8,13 @@
 
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
 
 </head>
 <body>
-
+<div class="edit_produk" data-flashdata="<?= $this->session->flashdata("edit_produk")?>"></div>
+<div class="hapus_produk" data-flashdata="<?= $this->session->flashdata("hapus_produk")?>"></div>
 <!-- Modal detail produk-->
 <div class="modal fade" id="detailproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -62,9 +64,9 @@
             <a href="" id="link-edit" class="btn btn-primary link-edit" data-toggle="modal" data-target="#editproduk" onclick="dataeditproduk(this)">
               <span>Edit</span>
             </a>
-            <a href="" id="link-hapus" class="btn btn-primary">
+            <button href="" class="btn btn-primary link-hapus" onclick="delete_produk(this)">
               <span>Hapus</span>
-            </a>
+            </button>
           </div>
         <?php } ?>
 
@@ -214,8 +216,8 @@
           "max" : data["stok_produk"],
           "min" : 1
         });
-        $("#link-hapus").attr({
-          "href" : "<?php echo base_url('index.php/home/hapus_produk/')?>"+data["id_produk"]+"/pria"
+        $(".link-hapus").attr({
+          "id" : data["id_produk"]
         });
         $(".link-edit").attr({
           "id" : data["id_produk"]
@@ -257,5 +259,58 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="<?php echo base_url('assets/ajax/search.js') ?>"></script>
+<script src="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.all.min.js') ?>"></script>
+
+<!-- sweetalert2 -->
+<script>
+  $(document).ready(function() {
+    var edit_produk = $(".edit_produk").data("flashdata");
+    var hapus_produk = $(".hapus_produk").data("flashdata");
+
+    // alert edit produk
+    if(edit_produk){
+      Swal.fire({
+        title : "Produk",
+        text:"Berhasil Diubah",
+        icon:"success",
+        timer:2000
+      });
+    }
+    // alert berhasil hapus
+    if(hapus_produk){
+        Swal.fire({
+          title : "Produk",
+          text:"Berhasil Dihapus",
+          icon:"success",
+          timer:1500
+        });
+      }
+  });
+  // alert yakin delete
+  function delete_produk(a){
+      var href = "<?php echo base_url('index.php/home/hapus_produk/')?>"+a.id+"/pria";
+      Swal.fire({
+        title : "Yakin Ingin Hapus",
+        text:"Data yang dihapus tidak dapat dikembalikan",
+        icon:"warning",
+        showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Ya",
+        cancelButtonText: "Tidak"
+      }).then((result) => {
+        if (result.value) {
+          document.location.href = href;
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title:'Dibatalkan',
+            text:'Data Produk Anda Aman',
+            icon:'error',
+            timer:1000
+          })
+        }
+      })
+    }
+</script>
+<!-- akhir sweetalert2 -->
 </body>
 </html>

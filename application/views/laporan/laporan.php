@@ -8,8 +8,8 @@
 
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
 </head>
 <body>
@@ -26,9 +26,9 @@
         <table class="table table-bordered" id="table-laporan">
             <thead class="thead-dark">
                 <tr>
-                    <th>nama pemesan</th>
-                    <th>alamat</th>
-                    <th>status</th>
+                    <th width="25%">nama pemesan</th>
+                    <th width="40%">alamat</th>
+                    <th width="35%">status</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -42,8 +42,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>    
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 <script>    
     var tabel = null;    
     $(document).ready(function() {        
