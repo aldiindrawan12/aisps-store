@@ -17,7 +17,7 @@
 <div class="add_produk" data-flashdata="<?= $this->session->flashdata("add_produk")?>"></div>
 <div class="edit_produk" data-flashdata="<?= $this->session->flashdata("edit_produk")?>"></div>
 <div class="hapus_produk" data-flashdata="<?= $this->session->flashdata("hapus_produk")?>"></div>
-<div class="keranjang" data-flashdata="<?= $this->session->flashdata("keranjang")?>"></div>
+<div class="add_keranjang" data-flashdata="<?= $this->session->flashdata("keranjang")?>"></div>
 
 <!-- Modal detail produk-->
 <div class="modal fade" id="detailproduk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -153,12 +153,12 @@
 
 <!-- tampilan produk -->
 <div class="container mt-3" id="konten">
-  <div class="text-center">
+  <div class="text-center bg-light p-2 rounded w-50 m-auto">
     <h1 style="font-size:2.5vmax;">Product Minggu Ini</h1>
   </div>
   <div class="row" >
     <?php foreach($produk_minggu as $value){?>
-        <div class="konten border border-dark p-3 rounded <?php if($value['stok_produk'] == 0){ echo 'konten-habis'; }?>">
+        <div class="konten border border-dark rounded <?php if($value['stok_produk'] == 0){ echo 'konten-habis'; }?>">
             <?php if($value["stok_produk"] == 0){?>
               <div class="habis">
                 <h1>Habis</h1>
@@ -166,15 +166,19 @@
             <?php }?>
             <a href="" id="<?= $value["id_produk"]?>" data-toggle="modal" data-target="#detailproduk" onclick="dataproduk(this)">
               <div class="container">
-               <table class="m-auto">
+               <table class="m-auto table">
                  <tr>
                   <td class="text-center">
                     <img class="gambar" src="<?php echo base_url('assets/img/').$value["gambar"]?>" alt="gambar">
                   </td>
                  </tr>
-                 <tr>
+                 <tr height="100px">
                   <td class="text-center">
-                    <span class="text-nama"><?= $value["nama_produk"]?></span>
+                    <?php if(strlen($value["nama_produk"])>20){?>
+                      <span class="text-nama"><?= substr($value["nama_produk"], 0,20);?>...</span>
+                    <?php }else{?>
+                      <span class="text-nama"><?=$value["nama_produk"]?></span>
+                    <?php }?>
                   </td>
                  </tr>
                  <tr>
@@ -209,8 +213,8 @@
     var add_produk = $(".add_produk").data("flashdata");
     var edit_produk = $(".edit_produk").data("flashdata");
     var hapus_produk = $(".hapus_produk").data("flashdata");
-    var keranjang = $(".keranjang").data("flashdata");
-    alert(keranjang);
+    var keranjang = $(".add_keranjang").data("flashdata");
+    // alert(keranjang);
 
     // alert login
     if(login){
@@ -227,7 +231,7 @@
         title : "Produk",
         text:"Berhasil Ditambah Ke Keranjang",
         icon:"success",
-        timer:1500
+        timer:2000
       });
     }
     // alert add produk

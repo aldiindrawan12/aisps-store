@@ -16,7 +16,7 @@
 <body>
 <div class="resi" data-flashdata="<?= $this->session->flashdata("resi")?>"></div>
 <!-- tampilan pesanan-->
-<div class="container mt-5">
+<div class="container mt-5 p-3 bg-light rounded">
     <?php if($status != ""){?>
         <div class="navbar navbar-expand-lg bg-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#status">

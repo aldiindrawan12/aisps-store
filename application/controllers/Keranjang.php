@@ -19,6 +19,7 @@ class Keranjang extends CI_Controller {
     
     public function hapus_keranjang($id_keranjang){
         $this->keranjang_model->hapus_keranjang($id_keranjang);
+		$this->session->set_flashdata("hapus_keranjang","Sukses");
         redirect(base_url("index.php/keranjang"));
     }
 

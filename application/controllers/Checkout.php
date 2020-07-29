@@ -77,6 +77,7 @@ class Checkout extends CI_Controller {
 		);		
 		//akhir data untuk isi database
 		$this->checkout_model->addpesanan($data_pesanan);
+		$this->session->set_flashdata("checkout","Sukses");
 		redirect(base_url("index.php/pesanan"));
 		
 	}

@@ -9,12 +9,14 @@
     <!-- link bootsrapt -->
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/css/home.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.css') ?>">
 
 </head>
 <body>
+<div class="hapus_keranjang" data-flashdata="<?= $this->session->flashdata("hapus_keranjang")?>"></div>
 
 <!-- tampilan keranjang -->
-<div class="container mt-3">
+<div class="container mt-3 rounded bg-light p-3">
   <div class="text-center">
     <h1>Keranjang Anda</h1>
   </div>
@@ -58,9 +60,9 @@
                     </td>
                     <td width="10%">Rp.<span id="t-total"><?= $value["total_harga"]?></span></td>
                     <td width="15%" class="text-center">
-                        <a href="<?php echo base_url('index.php/keranjang/hapus_keranjang/').$value["id_keranjang"]?>" class="btn btn-dark">
+                        <button  id="<?= $value["id_keranjang"]?>" class="btn btn-dark" onclick="hapus_keranjang(this)">
                             <span>Hapus</span>
-                        </a>
+                        </button>
                     </td>
                 </tr>
             <?php 
@@ -113,9 +115,9 @@
                 </tr>
                 <tr>
                     <td colspan=2 class="text-center">
-                        <a href="<?php echo base_url('index.php/keranjang/hapus_keranjang/').$value["id_keranjang"]?>" class="btn btn-dark float-right">
+                        <button  id="<?= $value["id_keranjang"]?>" class="btn btn-dark float-right" onclick="hapus_keranjang(this)">
                             <span>Hapus</span>
-                        </a>
+                        </button>
                     </td>
                 </tr>
             <?php 
@@ -178,5 +180,47 @@
 <script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="<?php echo base_url('assets/sweetalert2/dist/sweetalert2.all.min.js') ?>"></script>
+
+<!-- sweetalert2 -->
+<script>
+  $(document).ready(function() {
+    var hapus_keranjang = $(".hapus_keranjang").data("flashdata");
+    // alert hapus keranjang
+    if(hapus_keranjang){
+      Swal.fire({
+        title : "Keranjang",
+        text:"Berhasil Dihapus",
+        icon:"success",
+        timer:1500
+      });
+    }
+  });
+  function hapus_keranjang(a){
+    var href = "<?php echo base_url('index.php/keranjang/hapus_keranjang/')?>"+a.id;
+    // alert (href);
+    Swal.fire({
+        title : "Anda Yakin",
+        text:"Keranjang yang dihapus tidak bisa dikembalikan",
+        icon:"warning",
+        showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "Ya",
+        cancelButtonText: "Tidak"
+      }).then((result) => {
+        if (result.value) {
+          document.location.href = href;
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire({
+            title:'Dibatalkan',
+            text:'Data Keranjang Anda Aman',
+            icon:'error',
+            timer:1000
+          })
+        }
+      })
+  }
+</script>
+<!-- akhir sweetalert2 -->
 </body>
 </html>

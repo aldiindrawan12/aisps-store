@@ -15,9 +15,11 @@
 </head>
 <body>
 <div class="bukti" data-flashdata="<?= $this->session->flashdata("bukti")?>"></div>
+<div class="add_checkout" data-flashdata="<?= $this->session->flashdata("checkout")?>"></div>
+<div class="cancel_pesanan" data-flashdata="<?= $this->session->flashdata("cancel_pesanan")?>"></div>
 
 <!-- tampilan pesanan-->
-<div class="container mt-5">
+<div class="container mt-5 p-3 bg-light rounded">
     <?php if($status != ""){?>
         <div class="navbar navbar-expand-lg bg-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#status">
@@ -205,6 +207,9 @@
 <script>
   $(document).ready(function() {
     var bukti = $(".bukti").data("flashdata");
+    var checkout = $(".add_checkout").data("flashdata");
+    var cancel_pesanan = $(".cancel_pesanan").data("flashdata");
+
     // alert add produk
     if(bukti){
       Swal.fire({
@@ -212,6 +217,24 @@
         text:"Berhasil Ditambah",
         icon:"success",
         timer:1500
+      });
+    }
+    // alert add pesanan
+    if(checkout){
+      Swal.fire({
+        title : "Pesanan",
+        text:"Berhasil Ditambah",
+        icon:"success",
+        timer:2000
+      });
+    }
+    // alert cancel pesanan
+   if(cancel_pesanan){
+      Swal.fire({
+        title : "Pesanan",
+        text:"Berhasil Dibatalkan",
+        icon:"success",
+        timer:2000
       });
     }
   });

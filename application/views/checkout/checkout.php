@@ -13,7 +13,7 @@
 </head>
 <body>
 <!-- tampilan pesanan-->
-<div class="container mt-5">
+<div class="container mt-5 bg-light p-3 rounded">
     <div class="float-left pesanan">
         <table class="">
             <thead class="">
@@ -82,8 +82,8 @@
             </tbody>
         </table>
     </div>
+    <div style="clear:both"></div>
 </div>
-<div style="clear:both"></div>
 <!-- akhir tampilan pesanan-->
 
 <script src="<?php echo base_url('assets/bootstrap/js/jquery-3.4.1.min.js') ?>"></script>

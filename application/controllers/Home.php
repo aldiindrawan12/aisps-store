@@ -47,6 +47,7 @@ class Home extends CI_Controller {
 			);
 			$this->home_model->add_keranjang($data_keranjang);
 		}
+		// $this->session->set_flashdata("keranjang","Sukses");
 		$this->session->set_flashdata("keranjang","Sukses");
 		redirect(base_url());
 	}

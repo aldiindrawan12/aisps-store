@@ -19,7 +19,7 @@
     <a href="<?php echo base_url('index.php/pesanan/laporan_penjualan/') ?>" class="btn btn bg-light">Export Laporan Penjualan</a>
     <a href="<?php echo base_url('index.php/laporan/laporan_produk_terjual/') ?>" class="btn btn bg-light">Export Laporan Produk Terjual</a>
 </div>
-<div class="container">
+<div class="container bg-light p-3 rounded mt-4">
     <h4 class="text-center">Laporan Penjualan Produk</h4>
     <h4 class="text-center">AISPS STORE</h4>
     <div class="table-responsive">
